@@ -48,7 +48,7 @@ public class MejoraEventos {
      * @param imagenConector - Imagen del conector.
      */
     private static void DroppedAux(DragEvent evento,ImageView imagenConector){
-
+        /*
         Label numEntrada1 = new Label("i");
         Label numEntrada2 = new Label("i");
         Label numSalida = new Label("o");
@@ -71,13 +71,13 @@ public class MejoraEventos {
         numSalida.setLayoutX(evento.getSceneX() + 50);
         numSalida.setLayoutY(evento.getSceneY() - 5);
         output ++ ;
+        */
+        entrada1 = new Circular(evento.getX(), evento.getY() + 13);
+        entrada2 = new Circular(evento.getX(), evento.getY() + 28);
+        salida = new Circular(evento.getX() + 55,evento.getY() + 19.85);
 
-        entrada1 = new Circular(evento.getSceneX(), evento.getSceneY() + 13);
-        entrada2 = new Circular(evento.getSceneX(), evento.getSceneY() + 28);
-        salida = new Circular(evento.getSceneX() + 55,evento.getSceneY() + 19.85);
-
-        rectangle = new Rectangular(60, 55, imagenConector, evento, entrada1, entrada2, salida, numEntrada1, numEntrada2, numSalida);
-        AplicacionMain.Group.getChildren().addAll(rectangle,entrada1, entrada2, salida, numEntrada1, numEntrada2, numSalida);
+        rectangle = new Rectangular(60, 55, imagenConector, evento, entrada1, entrada2, salida);
+        AplicacionMain.Group.getChildren().addAll(rectangle,entrada1, entrada2, salida);
     }
 
     /**
