@@ -12,6 +12,8 @@ import javafx.scene.shape.Rectangle;
 
 import static Extras.Rectangular.*;
 
+//CORREGIR LÍNEAS ENTRE COMPONENTES
+
 /**
  * Clase que simplifica el código para generar eventos
  */
