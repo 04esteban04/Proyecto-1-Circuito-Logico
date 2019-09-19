@@ -17,16 +17,17 @@ public class Rectangular extends Rectangle {
     private double orgSceneX,orgSceneY;
     private double orgTranslateX,orgTranslateY;
     private Circular Output, OutputII,Input;
-    //private Label numEntrada1, numEntrada2, numSalida;
+    private Label numEntrada1, numEntrada2, numSalida;
 
-    public Rectangular(int width, int height, ImageView image, DragEvent e,Circular output, Circular outputII, Circular input) {
+    public Rectangular(int width, int height, ImageView image, DragEvent e,Circular output, Circular outputII,
+                       Circular input, Label numEntrada1, Label numEntrada2, Label numSalida) {
         super(width,height);
         this.Output=output;
         this.OutputII=outputII;
         this.Input=input;
-        //this.numEntrada1 = numEntrada1;
-        //this.numEntrada2 = numEntrada2;
-        //this.numSalida = numSalida;
+        this.numEntrada1 = numEntrada1;
+        this.numEntrada2 = numEntrada2;
+        this.numSalida = numSalida;
         this.setFill(new ImagePattern(image.getImage()));
         this.setCursor(Cursor.MOVE);
         this.setX(e.getX());
@@ -47,14 +48,14 @@ public class Rectangular extends Rectangle {
                     orgSceneY = evento.getSceneY();
                     orgTranslateX = ((Rectangle)(evento.getSource())).getTranslateX();
                     orgTranslateY = ((Rectangle)(evento.getSource())).getTranslateY();
-                    /*
+
                     numEntrada1.setLayoutX(evento.getSceneX() - 165);
                     numEntrada1.setLayoutY(evento.getSceneY() - 150);
                     numEntrada2.setLayoutX(evento.getSceneX() - 165);
                     numEntrada2.setLayoutY(evento.getSceneY() - 65);
                     numSalida.setLayoutX(evento.getSceneX() - 80);
                     numSalida.setLayoutY(evento.getSceneY() - 110);
-                    */
+
                     if (OutputII!=null) {
                         Output.Pressed(evento);
                         OutputII.Pressed(evento);
@@ -79,14 +80,14 @@ public class Rectangular extends Rectangle {
                     double newTranslateY = orgTranslateY + offsetY;
                     ((Rectangle)(evento.getSource())).setTranslateX(newTranslateX);
                     ((Rectangle)(evento.getSource())).setTranslateY(newTranslateY);
-                    /*
+
                     numEntrada1.setLayoutX(evento.getSceneX() - 165);
                     numEntrada1.setLayoutY(evento.getSceneY() - 150);
                     numEntrada2.setLayoutX(evento.getSceneX() - 165);
                     numEntrada2.setLayoutY(evento.getSceneY() - 65);
                     numSalida.setLayoutX(evento.getSceneX() - 80);
                     numSalida.setLayoutY(evento.getSceneY() - 110);
-                    */
+
                     if (OutputII!=null) {
                         Output.Dragged(evento);
                         OutputII.Dragged(evento);

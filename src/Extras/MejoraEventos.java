@@ -48,7 +48,7 @@ public class MejoraEventos {
      * @param imagenConector - Imagen del conector.
      */
     private static void DroppedAux(DragEvent evento,ImageView imagenConector){
-        /*
+
         Label numEntrada1 = new Label("i");
         Label numEntrada2 = new Label("i");
         Label numSalida = new Label("o");
@@ -58,26 +58,26 @@ public class MejoraEventos {
         numSalida.setText("o");
 
         numEntrada1.setText(numEntrada1.getText() + input);
-        numEntrada1.setLayoutX(evento.getSceneX());
-        numEntrada1.setLayoutY(evento.getSceneY() - 15);
+        numEntrada1.setLayoutX(evento.getX());
+        numEntrada1.setLayoutY(evento.getY() - 15);
         input++;
 
         numEntrada2.setText(numEntrada2.getText() + input);
-        numEntrada2.setLayoutX(evento.getSceneX() - 20);
-        numEntrada2.setLayoutY(evento.getSceneY() + 35);
+        numEntrada2.setLayoutX(evento.getX() - 20);
+        numEntrada2.setLayoutY(evento.getY() + 35);
         input ++ ;
 
         numSalida.setText(numSalida.getText() + output);
-        numSalida.setLayoutX(evento.getSceneX() + 50);
-        numSalida.setLayoutY(evento.getSceneY() - 5);
+        numSalida.setLayoutX(evento.getX() + 50);
+        numSalida.setLayoutY(evento.getY() - 5);
         output ++ ;
-        */
+
         entrada1 = new Circular(evento.getX(), evento.getY() + 13);
         entrada2 = new Circular(evento.getX(), evento.getY() + 28);
         salida = new Circular(evento.getX() + 55,evento.getY() + 19.85);
 
-        rectangle = new Rectangular(60, 55, imagenConector, evento, entrada1, entrada2, salida);
-        AplicacionMain.Group.getChildren().addAll(rectangle,entrada1, entrada2, salida);
+        rectangle = new Rectangular(60, 55, imagenConector, evento, entrada1, entrada2, salida, numEntrada1, numEntrada2, numSalida);
+        AplicacionMain.Group.getChildren().addAll(rectangle,entrada1, entrada2, salida, numEntrada1, numEntrada2, numSalida);
     }
 
     /**
