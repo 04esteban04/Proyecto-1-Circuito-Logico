@@ -2,8 +2,6 @@ package Extras;
 
 import Aplicacion.AplicacionMain;
 import javafx.event.EventHandler;
-import javafx.scene.Cursor;
-import javafx.scene.input.DragEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
@@ -49,20 +47,20 @@ public class Circular extends Circle {
         this.setTranslateY(newTranslateY);
     }
 
-    public void Click(MouseEvent e){
-        if(Draw){
-            line = new Line(StartX , StartY, e.getSceneX(), e.getSceneY());
+    public void Click(MouseEvent e) {
+        if (Draw) {
+            line = new Line(StartX, StartY, e.getSceneX(), e.getSceneY());
             this.setFill(Color.GREEN);
             AplicacionMain.Group.getChildren().add(line);
-        }
-        else {
+        } else {
             StartX = e.getSceneX();
             StartY = e.getSceneY();
             Draw = true;
             this.setFill(Color.RED);
         }
-        /*
-        public static Line connect(Circular c1, Circular c2) {
+    }
+    
+    public static Line connect(Circular c1, Circular c2) {
         Line line = new Line();
 
         line.startXProperty().bind(c1.centerXProperty());
@@ -76,9 +74,8 @@ public class Circular extends Circle {
         line.getStrokeDashArray().setAll(1.0, 4.0);
 
         return line;
-        */
-
     }
+
     public static void drawLine(Line linea){
         linea = new Line(orgSceneX, orgSceneY, orgTranslateX, orgTranslateY);
         AplicacionMain.Group.getChildren().add(linea);
