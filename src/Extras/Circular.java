@@ -49,7 +49,7 @@ public class Circular extends Circle {
 
     public void Click(MouseEvent e) {
         if (Draw) {
-            line = new Line(StartX, StartY, e.getSceneX(), e.getSceneY());
+            line = new Line(StartX, StartY, e.getX(), e.getY());
             this.setFill(Color.GREEN);
             AplicacionMain.Group.getChildren().add(line);
         } else {
