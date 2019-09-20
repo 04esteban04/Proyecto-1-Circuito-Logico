@@ -1,7 +1,6 @@
 package Aplicacion;
 
 import Conectores.*;
-import Extras.Circular;
 import Extras.MejoraEventos;
 import Lista.ListaEnlazada;
 import javafx.application.Application;
@@ -10,6 +9,7 @@ import javafx.scene.Cursor;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.ImageView;
@@ -60,6 +60,8 @@ public class AplicacionMain extends Application {
      * Panel donde se muestran los conectores escogidos
      */
     public static final Pane ventanaDiseño = new Pane(Group);
+
+    private Button Play = new Button("Play");
 
     /**
      * Contenedor de los conectores iniciales
@@ -150,7 +152,7 @@ public class AplicacionMain extends Application {
             x.setOnDragDetected(new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent evento) {
-                    MejoraEventos.DragDetected(evento ,x , nombreConector[finalA]);
+                    MejoraEventos.DragDetected(evento , x, nombreConector[finalA]);
                 }});
             a++;
         }
@@ -173,6 +175,15 @@ public class AplicacionMain extends Application {
             }
         });
 
+        //Colocando evento al boton play
+        Play.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                MejoraEventos.Play(event);
+            }
+        });
+
+
         /**
          * Label del Palette
          */
@@ -183,6 +194,7 @@ public class AplicacionMain extends Application {
         anclar.getChildren().add(labelPalette);
         AnchorPane.setBottomAnchor(labelPalette, 15.0);
         */
+
         /**
          * Contenedor para conectores iniciales
          */
@@ -191,8 +203,8 @@ public class AplicacionMain extends Application {
          * Contenedor para conectores dentro del contenedor Vbox
          */
         ScrollPane scrollpane = new ScrollPane();
-        scrollpane.setMaxSize(88, 485);
-        scrollpane.setPrefWidth(88);
+        //scrollpane.setMaxSize(88, 485);
+        //scrollpane.setPrefWidth(88);
         scrollpane.setCursor(Cursor.HAND);
         scrollpane.setContent(componentesInicio);
         scrollpane.setBackground(Background.EMPTY);
@@ -207,7 +219,7 @@ public class AplicacionMain extends Application {
         //borderPane.setLayoutY(50);
         borderPane.setBackground(Background.EMPTY);
         //borderPane.setTop(anclar);
-        borderPane.setLeft(scrollpane);
+        borderPane.setRight(scrollpane);
 
         borderPane.setCenter(ventanaDiseño);
 

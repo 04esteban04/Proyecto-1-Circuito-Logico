@@ -1,5 +1,5 @@
 package Extras;
-
+/*
 import Aplicacion.*;
 import javafx.event.EventHandler;
 import javafx.scene.Cursor;
@@ -11,12 +11,13 @@ import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
 
 import static Extras.Rectangular.*;
-
+*/
 //CORREGIR LÍNEAS ENTRE COMPONENTES
 
 /**
  * Clase que simplifica el código para generar eventos
  */
+/*
 public class MejoraEventos {
 
     private static Circular entrada1, entrada2, salida;
@@ -26,14 +27,15 @@ public class MejoraEventos {
     public static int input = 1;
     public static int output = 1;
     public static Line linea;
-
-
+*/
+    /*
     /**
      * Método que administra el drag sobre el conector del palette
      * @param evento - Evento de mouse al mover la imagen
      * @param imagenConector - Imagen del conector seleccionado
      * @param nombre - Nombre del conector seleccionado
      */
+    /*
    public static final void DragDetected(MouseEvent evento, ImageView imagenConector, String nombre){
         Dragboard db = imagenConector.startDragAndDrop(TransferMode.ANY);
         ClipboardContent content = new ClipboardContent();
@@ -41,12 +43,14 @@ public class MejoraEventos {
         db.setContent(content);
         evento.consume();
     }
-
+    */
+    /*
     /**
      * Método que coloca la imagen en un rectángulo para colocarlo en el panel principal
      * @param evento - Evento de drag al mover la imagen
      * @param imagenConector - Imagen del conector.
      */
+    /*
     private static void DroppedAux(DragEvent evento,ImageView imagenConector){
 
         Label numEntrada1 = new Label("i");
@@ -79,11 +83,14 @@ public class MejoraEventos {
         rectangle = new Rectangular(60, 55, imagenConector, evento, entrada1, entrada2, salida, numEntrada1, numEntrada2, numSalida);
         AplicacionMain.Group.getChildren().addAll(rectangle,entrada1, entrada2, salida, numEntrada1, numEntrada2, numSalida);
     }
-
+    */
+    /*
     /**
      * Método que introduce en una lista enlazada cada conector cuando se suelta la imagen del conector
      * @param evento - Evento de drag al mover la imagen
      */
+
+    /*
     public static final void Dropped(DragEvent evento, ImageView[] i){
         int cont = 0;
         for (String x : AplicacionMain.nombreConector){
@@ -97,6 +104,99 @@ public class MejoraEventos {
             cont++;
         }
     }
+
+    public static void Play(MouseEvent e){
+        for (int x=0;x<AplicacionMain.lista.getLargo();x++){
+            Conector c = AplicacionMain.lista.Obtener(x);
+            System.out.println(c.getPrimeraEntrada() +""+ c.getSegundaEntrada());
+        }
+    }
 }
+*/
+
+import Aplicacion.*;
+import Conectores.*;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.*;
+import javafx.scene.shape.Rectangle;
+
+
+public class MejoraEventos {
+
+    /**
+     * Este metodo gestiona el drag de la imagen
+     * que se encuentra en la paleta.
+     *
+     * @param e    - Evento de mouse al mover la imagen.
+     * @param Comp - Imagen del componente.
+     * @param Name - Nombre del componente que se está moviendo.
+     */
+    public static void DragDetected(MouseEvent e, ImageView Comp, String Name) {
+        Dragboard db = Comp.startDragAndDrop(TransferMode.ANY);
+        ClipboardContent content = new ClipboardContent();
+        content.putString(Name);
+        db.setContent(content);
+        e.consume();
+    }
+
+    /**
+     * Este metodo es un auxiliar del evento drop de la imagen.
+     * En este se coloca la imagen en un rectangulo para la
+     * implementacion en el panel principal.
+     *
+     * @param e - Evento tipo drag.
+     * @param i - Imagen del componente.
+     * @param C - String para identificar el componente.
+     */
+    private static void DroppedAux(DragEvent e, ImageView i, String C, Conector c) {
+        Circular output;
+        Circular input;
+        Rectangle rectangle;
+        if (!C.equals("NOT")) {
+            output = new Circular(e.getSceneX(), e.getSceneY() + 10, c, "output");
+            Circular outputII = new Circular(e.getSceneX(), e.getSceneY() + 30, c, "output");
+            input = new Circular(e.getSceneX() + 50, e.getSceneY() + 20, c, "input");
+            rectangle = new Rectangular(50, 40, i, e, output, outputII, input);
+            AplicacionMain.Group.getChildren().addAll(rectangle, output, outputII, input);
+        } else {
+            output = new Circular(e.getSceneX(), e.getSceneY() + 20, c, "output");
+            input = new Circular(e.getSceneX() + 50, e.getSceneY() + 20, c, "input");
+            rectangle = new Rectangular(50, 40, i, e, output, null, input);
+            AplicacionMain.Group.getChildren().addAll(rectangle, output, input);
+        }
+    }
+
+    /**
+     * Este metodo gestiona el drop de la imagen del componente.
+     * Identifica que componente se está moviendo, imprime en un TextArea
+     * e introduce en una lista enlazada cada componente.
+     *
+     * @param e - Evento tipo DragEvent.
+     */
+    public static void Dropped(DragEvent e, ImageView[] i) {
+        int cont = 0;
+        for (String x : AplicacionMain.nombreConector) {
+            if (e.getDragboard().getString().equals(x)) {
+                Conector c = new ConectorFactory().crearComponente(x);
+                MejoraEventos.DroppedAux(e, i[cont], x, c);
+                //AplicacionMain.AreaText.appendText("Agrega componente "+ x +"\n");
+                if (AplicacionMain.lista.getLargo() == 0) {
+                    AplicacionMain.lista.InsertarInicio(c);
+                } else {
+                    AplicacionMain.lista.InsertarFinal(c);
+                }
+            }
+            cont++;
+        }
+    }
+
+    public static void Play(MouseEvent e) {
+        for (int x = 0; x < AplicacionMain.lista.getLargo(); x++) {
+            Conector c = AplicacionMain.lista.Obtener(x);
+            System.out.println(c.getPrimeraEntrada() + "" + c.getSegundaEntrada());
+        }
+    }
+}
+
 
 

@@ -14,11 +14,18 @@ public class Conector implements interfazConector {
     /**
      * Variable que almacena el valor de la primera entrada del conector
      */
-    protected int Entrada1;
+    protected Conector Entrada1;
     /**
      * Variable que almacena el valor de la segunda entrada del conector
      */
-    protected int Entrada2;
+    protected Conector Entrada2;
+
+    private static int IDt;
+    private int ID;
+    protected String Name;
+    protected boolean input;
+
+
 
     /**
      * Constructor clase Conector
@@ -26,10 +33,31 @@ public class Conector implements interfazConector {
      * @param entrada1 - Primera entrada del conector
      * @param entrada2 - Segunda entrada del conector
      */
-    public Conector(Image image, int entrada1, int entrada2) {
+    public Conector(Image image, Conector entrada1, Conector entrada2, String name) {
         Image = image;
         Entrada1 = entrada1;
         Entrada2 = entrada2;
+        Name = name;
+        ID = IDt;
+        IDt++;
+        input = false;
+    }
+
+
+    public Conector getPrimeraEntrada(){
+        return Entrada1;
+    }
+    public Conector getSegundaEntrada(){
+        return Entrada2;
+    }
+    public String getName() {
+        return Name;
+    }
+    public int getID() {
+        return ID;
+    }
+    public void setInput(boolean input) {
+        this.input = input;
     }
 
     /**
@@ -37,7 +65,7 @@ public class Conector implements interfazConector {
      * @param entrada - Valor de la entrada
      */
     @Override
-    public void setPrimeraEntrada(int entrada) {
+    public void setPrimeraEntrada(Conector entrada) {
         this.Entrada1=entrada;
     }
 
@@ -46,9 +74,10 @@ public class Conector implements interfazConector {
      * @param entrada - Valor de la entrada
      */
     @Override
-    public void setSegundaEntrada(int entrada) {
+    public void setSegundaEntrada(Conector entrada) {
         this.Entrada2=entrada;
     }
+
 
     /**
      * Método que retorna la salida del conector

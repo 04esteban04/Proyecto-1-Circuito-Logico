@@ -19,8 +19,8 @@ public class Not extends Conector implements interfazConector {
      * @param entrada1 - Primera entrada del conector
      * @param entrada2 - Segunda entrada del conector
      */
-    public Not(Image image, int entrada1, int entrada2) {
-        super(image, entrada1, entrada2);
+    public Not(Image image, Conector entrada1, Conector entrada2) {
+        super(image, entrada1, entrada2, nombre);
     }
 
     /**
@@ -28,7 +28,7 @@ public class Not extends Conector implements interfazConector {
      * @param entrada - Valor de la entrada
      */
     @Override
-    public void setPrimeraEntrada(int entrada) {
+    public void setPrimeraEntrada(Conector entrada) {
         super.setPrimeraEntrada(entrada);
     }
 
@@ -37,7 +37,7 @@ public class Not extends Conector implements interfazConector {
      * @param entrada - Valor de la entrada
      */
     @Override
-    public void setSegundaEntrada(int entrada) {
+    public void setSegundaEntrada(Conector entrada) {
         super.setSegundaEntrada(entrada);
     }
 
@@ -46,7 +46,7 @@ public class Not extends Conector implements interfazConector {
      * @return - Retorna un entero según el valor de las entradas del conector
      */
     public int getSalida() {
-        if (Entrada1==1){
+        if (Entrada1.getSalida() == 1){
             return 0;
         }
         else{
