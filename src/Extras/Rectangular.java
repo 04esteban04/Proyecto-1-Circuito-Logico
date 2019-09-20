@@ -16,15 +16,15 @@ import javafx.scene.shape.Shape;
 public class Rectangular extends Rectangle {
     private double orgSceneX,orgSceneY;
     private double orgTranslateX,orgTranslateY;
-    private Circular Output, OutputII,Input;
+    private static Circular Output, OutputII,Input;
     private Label numEntrada1, numEntrada2, numSalida;
 
     public Rectangular(int width, int height, ImageView image, DragEvent e,Circular output, Circular outputII,
                        Circular input, Label numEntrada1, Label numEntrada2, Label numSalida) {
         super(width,height);
-        this.Output=output;
-        this.OutputII=outputII;
-        this.Input=input;
+        Output = output;
+        OutputII = outputII;
+        Input = input;
         this.numEntrada1 = numEntrada1;
         this.numEntrada2 = numEntrada2;
         this.numSalida = numSalida;

@@ -176,13 +176,13 @@ public class AplicacionMain extends Application {
         /**
          * Label del Palette
          */
-
+        /*
         Label labelPalette = new Label("PALETTE");
         labelPalette.setFont(Font.font("Banschriff Sans Seriff", FontWeight.BOLD, 22));
         AnchorPane anclar = new AnchorPane();
         anclar.getChildren().add(labelPalette);
         AnchorPane.setBottomAnchor(labelPalette, 15.0);
-
+        */
         /**
          * Contenedor para conectores iniciales
          */
@@ -203,10 +203,10 @@ public class AplicacionMain extends Application {
          * Contenedor del scrollbar
          */
         BorderPane borderPane = new BorderPane();
-        borderPane.setLayoutX(40);
-        borderPane.setLayoutY(50);
+        //borderPane.setLayoutX(40);
+        //borderPane.setLayoutY(50);
         borderPane.setBackground(Background.EMPTY);
-        borderPane.setTop(anclar);
+        //borderPane.setTop(anclar);
         borderPane.setLeft(scrollpane);
 
         borderPane.setCenter(ventanaDiseño);
