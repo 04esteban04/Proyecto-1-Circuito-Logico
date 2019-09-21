@@ -4,6 +4,7 @@ import Conectores.*;
 import Extras.MejoraEventos;
 import Lista.ListaEnlazada;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.scene.Cursor;
 import javafx.scene.Group;
@@ -21,6 +22,13 @@ import javafx.scene.shape.Line;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
+
+import java.util.Timer;
+import java.util.TimerTask;
+import java.util.concurrent.locks.Lock;
+
+import static java.lang.Thread.sleep;
 
 /**
  * Clase para ejecutar la ventana principal de la aplicación.
@@ -126,6 +134,36 @@ public class AplicacionMain extends Application {
      */
     public static final Not not =(Not) new ConectorFactory().crearComponente(Not.nombre);
 
+
+    static int cont = 0;
+    static boolean tipo = true;
+
+    public void nuevaVentana() throws InterruptedException {
+        System.out.println("timer: " + cont);
+        Stage stage1 = new Stage();
+        stage1.setWidth(500);
+        stage1.setHeight(350);
+
+        BorderPane pane = new BorderPane();
+        pane.setCenter(new Label(" Prueba Ventana Inicio "));
+
+        Scene scene = new Scene(pane);
+        stage1.setScene(scene);
+        stage1.setTitle("Nueva Ventana");
+        stage1.show();
+
+        while(cont < 5) {
+            cont++;
+            tipo = false;
+            Thread.sleep(1000);
+        }
+
+        //Thread.sleep(4000);
+        stage1.close();
+
+    }
+
+
     /**
      * Método que ejecuta la aplicacion.
      * @param args
@@ -140,6 +178,10 @@ public class AplicacionMain extends Application {
      */
     @Override
     public void start(Stage primaryStage) throws  Exception{
+
+        //nuevaVentana();
+        //Thread.sleep(4000);
+        //stage.initStyle(StageStyle.UNDECORATED);
 
         /**
          * Se asigna a cada imagen el evento correspondiente
@@ -228,6 +270,7 @@ public class AplicacionMain extends Application {
         primaryStage.setTitle(("                                                                                         " +
                                "                                             Simulador de Circuitos Lógicos ").toUpperCase());
         primaryStage.setScene(scene);
+        primaryStage.initStyle(StageStyle.UTILITY);
         primaryStage.show();
     }
 }

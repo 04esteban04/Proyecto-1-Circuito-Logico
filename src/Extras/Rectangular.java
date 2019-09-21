@@ -109,6 +109,7 @@ public class Rectangular extends Rectangle {
 
 import javafx.event.EventHandler;
 import javafx.scene.Cursor;
+import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.MouseEvent;
@@ -123,12 +124,19 @@ public class Rectangular extends Rectangle {
     private double orgSceneX,orgSceneY;
     private double orgTranslateX,orgTranslateY;
     private Circular Output, OutputII,Input;
+    Label numEntrada1;
+    Label numEntrada2;
+    Label numSalida;
 
-    public Rectangular(int width, int height, ImageView image, DragEvent e,Circular output, Circular outputII, Circular input) {
+    public Rectangular(int width, int height, ImageView image, DragEvent e,Circular output, Circular outputII,
+                       Circular input, Label labelEntrada1, Label labelEntrada2, Label labelSalida) {
         super(width,height);
         this.Output=output;
         this.OutputII=outputII;
         this.Input=input;
+        this.numEntrada1 = labelEntrada1;
+        this.numEntrada2 = labelEntrada2;
+        this.numSalida = labelSalida;
         this.setFill(new ImagePattern(image.getImage()));
         this.setCursor(Cursor.MOVE);
         this.setX(e.getSceneX());

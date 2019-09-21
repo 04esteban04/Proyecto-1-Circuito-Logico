@@ -116,8 +116,10 @@ public class MejoraEventos {
 
 import Aplicacion.*;
 import Conectores.*;
+import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.*;
+import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
 
 
@@ -144,25 +146,77 @@ public class MejoraEventos {
      * En este se coloca la imagen en un rectangulo para la
      * implementacion en el panel principal.
      *
-     * @param e - Evento tipo drag.
+     * @param evento - Evento tipo drag.
      * @param i - Imagen del componente.
      * @param C - String para identificar el componente.
      */
-    private static void DroppedAux(DragEvent e, ImageView i, String C, Conector c) {
+    private static void DroppedAux(DragEvent evento, ImageView i, String C, Conector c) {
         Circular output;
         Circular input;
         Rectangle rectangle;
+        int labelEntrada = 1;
+        int labelSalida = 1;
+        Line linea;
         if (!C.equals("NOT")) {
-            output = new Circular(e.getSceneX(), e.getSceneY() + 10, c, "output");
-            Circular outputII = new Circular(e.getSceneX(), e.getSceneY() + 30, c, "output");
-            input = new Circular(e.getSceneX() + 50, e.getSceneY() + 20, c, "input");
-            rectangle = new Rectangular(50, 40, i, e, output, outputII, input);
-            AplicacionMain.Group.getChildren().addAll(rectangle, output, outputII, input);
+            output = new Circular(evento.getSceneX(), evento.getSceneY() + 10, c, "output");
+            Circular outputII = new Circular(evento.getSceneX(), evento.getSceneY() + 30, c, "output");
+            input = new Circular(evento.getSceneX() + 50, evento.getSceneY() + 20, c, "input");
+
+            Label numEntrada1 = new Label("i");
+            Label numEntrada2 = new Label("i");
+            Label numSalida = new Label("o");
+
+            //numEntrada1.setText("i");
+            //numEntrada2.setText("i");
+            //numSalida.setText("o");
+
+            numEntrada1.setText(numEntrada1.getText() + labelEntrada);
+            numEntrada1.setLayoutX(evento.getX());
+            numEntrada1.setLayoutY(evento.getY() - 15);
+            labelEntrada++;
+
+            numEntrada2.setText(numEntrada2.getText() + labelEntrada);
+            numEntrada2.setLayoutX(evento.getX() - 20);
+            numEntrada2.setLayoutY(evento.getY() + 35);
+            labelEntrada ++ ;
+
+            numSalida.setText(numSalida.getText() + labelSalida);
+            numSalida.setLayoutX(evento.getX() + 50);
+            numSalida.setLayoutY(evento.getY() - 5);
+            labelSalida++;
+
+            rectangle = new Rectangular(50, 40, i, evento, output, outputII, input, numEntrada1, numEntrada2, numSalida);
+            AplicacionMain.Group.getChildren().addAll(rectangle, output, outputII, input, numEntrada1, numEntrada2, numSalida);
+
         } else {
-            output = new Circular(e.getSceneX(), e.getSceneY() + 20, c, "output");
-            input = new Circular(e.getSceneX() + 50, e.getSceneY() + 20, c, "input");
-            rectangle = new Rectangular(50, 40, i, e, output, null, input);
-            AplicacionMain.Group.getChildren().addAll(rectangle, output, input);
+            output = new Circular(evento.getSceneX(), evento.getSceneY() + 20, c, "output");
+            input = new Circular(evento.getSceneX() + 50, evento.getSceneY() + 20, c, "input");
+
+            Label numEntrada1 = new Label("i");
+            Label numEntrada2 = new Label("i");
+            Label numSalida = new Label("o");
+
+            //numEntrada1.setText("i");
+            //numEntrada2.setText("i");
+            //numSalida.setText("o");
+
+            numEntrada1.setText(numEntrada1.getText() + input);
+            numEntrada1.setLayoutX(evento.getX());
+            numEntrada1.setLayoutY(evento.getY() - 15);
+            labelEntrada++;
+
+            numEntrada2.setText(numEntrada2.getText() + input);
+            numEntrada2.setLayoutX(evento.getX() - 20);
+            numEntrada2.setLayoutY(evento.getY() + 35);
+            labelEntrada ++ ;
+
+            numSalida.setText(numSalida.getText() + output);
+            numSalida.setLayoutX(evento.getX() + 50);
+            numSalida.setLayoutY(evento.getY() - 5);
+            labelSalida++;
+
+            rectangle = new Rectangular(50, 40, i, evento, output, null, input, numEntrada1, numEntrada2, numSalida);
+            AplicacionMain.Group.getChildren().addAll(rectangle, output, input, numEntrada1, numEntrada2, numSalida);
         }
     }
 
