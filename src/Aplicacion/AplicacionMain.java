@@ -137,6 +137,8 @@ public class AplicacionMain extends Application {
 
     static int cont = 0;
     static boolean tipo = true;
+    public static int labelEntrada = 0;
+    public static int labelSalida = 0;
 
     public void nuevaVentana() throws InterruptedException {
         System.out.println("timer: " + cont);
@@ -213,7 +215,7 @@ public class AplicacionMain extends Application {
         ventanaDiseño .setOnDragDropped(new EventHandler<DragEvent>() {
             @Override
             public void handle(DragEvent evento) {
-                MejoraEventos.Dropped(evento,Imagenes);
+                MejoraEventos.Dropped(evento, Imagenes, labelEntrada, labelSalida);
             }
         });
 
