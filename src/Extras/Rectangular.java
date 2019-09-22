@@ -159,22 +159,22 @@ public class Rectangular extends Rectangle {
                     orgTranslateY = ((Rectangle)(evento.getSource())).getTranslateY();
 
                     if (OutputII != null) {
-                        numEntrada1.setLayoutX(evento.getSceneX() - 165);
-                        numEntrada1.setLayoutY(evento.getSceneY() - 150);
-                        numEntrada2.setLayoutX(evento.getSceneX() - 165);
-                        numEntrada2.setLayoutY(evento.getSceneY() - 65);
-                        numSalida.setLayoutX(evento.getSceneX() - 80);
-                        numSalida.setLayoutY(evento.getSceneY() - 110);
+                        numEntrada1.setLayoutX(evento.getSceneX() - 48);
+                        numEntrada1.setLayoutY(evento.getSceneY() - 38);
+                        numEntrada2.setLayoutX(evento.getSceneX() - 40);
+                        numEntrada2.setLayoutY(evento.getSceneY() + 10);
+                        numSalida.setLayoutX(evento.getSceneX() + 30);
+                        numSalida.setLayoutY(evento.getSceneY() - 38);
 
                         Output.Pressed(evento);
                         OutputII.Pressed(evento);
                         Input.Pressed(evento);
                     }
                     else {
-                        numEntrada1.setLayoutX(evento.getSceneX() - 165);
-                        numEntrada1.setLayoutY(evento.getSceneY() - 150);
-                        numSalida.setLayoutX(evento.getSceneX() - 80);
-                        numSalida.setLayoutY(evento.getSceneY() - 110);
+                        numEntrada1.setLayoutX(evento.getSceneX() - 48);
+                        numEntrada1.setLayoutY(evento.getSceneY() - 38);
+                        numSalida.setLayoutX(evento.getSceneX() + 30);
+                        numSalida.setLayoutY(evento.getSceneY() - 38);
 
                         Output.Pressed(evento);
                         Input.Pressed(evento);
@@ -197,22 +197,22 @@ public class Rectangular extends Rectangle {
                     ((Rectangle)(evento.getSource())).setTranslateY(newTranslateY);
 
                     if (OutputII != null) {
-                        numEntrada1.setLayoutX(evento.getSceneX() - 165);
-                        numEntrada1.setLayoutY(evento.getSceneY() - 150);
-                        numEntrada2.setLayoutX(evento.getSceneX() - 165);
-                        numEntrada2.setLayoutY(evento.getSceneY() - 65);
-                        numSalida.setLayoutX(evento.getSceneX() - 80);
-                        numSalida.setLayoutY(evento.getSceneY() - 110);
+                        numEntrada1.setLayoutX(evento.getSceneX() - 48);
+                        numEntrada1.setLayoutY(evento.getSceneY() - 38);
+                        numEntrada2.setLayoutX(evento.getSceneX() - 40);
+                        numEntrada2.setLayoutY(evento.getSceneY() + 10);
+                        numSalida.setLayoutX(evento.getSceneX() + 30);
+                        numSalida.setLayoutY(evento.getSceneY() - 38);
 
                         Output.Dragged(evento);
                         OutputII.Dragged(evento);
                         Input.Dragged(evento);
                     }
                     else {
-                        numEntrada1.setLayoutX(evento.getSceneX() - 165);
-                        numEntrada1.setLayoutY(evento.getSceneY() - 150);
-                        numSalida.setLayoutX(evento.getSceneX() - 80);
-                        numSalida.setLayoutY(evento.getSceneY() - 110);
+                        numEntrada1.setLayoutX(evento.getSceneX() - 48);
+                        numEntrada1.setLayoutY(evento.getSceneY() - 38);
+                        numSalida.setLayoutX(evento.getSceneX() + 30);
+                        numSalida.setLayoutY(evento.getSceneY() - 38);
 
                         Output.Dragged(evento);
                         Input.Dragged(evento);

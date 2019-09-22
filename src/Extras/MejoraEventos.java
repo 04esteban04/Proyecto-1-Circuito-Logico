@@ -160,9 +160,9 @@ public class MejoraEventos {
         Label numSalida = new Label("o");
 
         if (C != "Not") {
-            output = new Circular(evento.getSceneX(), evento.getSceneY() + 10, c, "output");
-            Circular outputII = new Circular(evento.getSceneX(), evento.getSceneY() + 30, c, "output");
-            input = new Circular(evento.getSceneX() + 50, evento.getSceneY() + 20, c, "input");
+            output = new Circular(evento.getSceneX() + 4, evento.getSceneY() + 17, c, "output");
+            Circular outputII = new Circular(evento.getSceneX() + 4, evento.getSceneY() + 31, c, "output");
+            input = new Circular(evento.getSceneX() + 65, evento.getSceneY() + 25, c, "input");
 
             numEntrada1.setText("i");
             numEntrada2.setText("i");
@@ -190,8 +190,8 @@ public class MejoraEventos {
             AplicacionMain.Group.getChildren().addAll(rectangle, output, outputII, input, numEntrada1, numEntrada2, numSalida);
 
         } else {
-            output = new Circular(evento.getSceneX(), evento.getSceneY() + 20, c, "output");
-            input = new Circular(evento.getSceneX() + 50, evento.getSceneY() + 20, c, "input");
+            output = new Circular(evento.getSceneX() + 4, evento.getSceneY() + 22, c, "output");
+            input = new Circular(evento.getSceneX() + 65, evento.getSceneY() + 22, c, "input");
 
             numEntrada1.setText("i");
             numSalida.setText("o");

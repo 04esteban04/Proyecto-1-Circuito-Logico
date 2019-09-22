@@ -34,6 +34,15 @@ import static java.lang.Thread.sleep;
  * Clase para ejecutar la ventana principal de la aplicación.
  */
 public class AplicacionMain extends Application {
+
+    /**
+     * Método que ejecuta la aplicacion.
+     * @param args
+     */
+    public static void main(String [] args){
+        launch(args);
+    }
+
     /**
      * Variables necesarias para obtener el nombre del conetor
      */
@@ -69,6 +78,9 @@ public class AplicacionMain extends Application {
      */
     public static final Pane ventanaDiseño = new Pane(Group);
 
+    /**
+     * Botón para ejecutar la simulación del circuito
+     */
     private Button Play = new Button("Play");
 
     /**
@@ -134,12 +146,18 @@ public class AplicacionMain extends Application {
      */
     public static final Xnor xnor = (Xnor)new ConectorFactory().crearComponente(Xnor.nombre);
 
-
-    static int cont = 0;
-    static boolean tipo = true;
+    /**
+     * Variable para la numeración de las entradas
+     */
     public static int labelEntrada = 0;
+    /**
+     * Variable para la numeración de las salidas
+     */
     public static int labelSalida = 0;
 
+    /*
+    static int cont = 0;
+    static boolean tipo = true;
     public void nuevaVentana() throws InterruptedException {
         System.out.println("timer: " + cont);
         Stage stage1 = new Stage();
@@ -164,15 +182,8 @@ public class AplicacionMain extends Application {
         stage1.close();
 
     }
+    */
 
-
-    /**
-     * Método que ejecuta la aplicacion.
-     * @param args
-     */
-    public static void main(String [] args){
-        launch(args);
-    }
 
     /**
      * Método que contiene todos los componentes gráficos de la aplicación.
@@ -219,7 +230,9 @@ public class AplicacionMain extends Application {
             }
         });
 
-        //Colocando evento al boton play
+        /**
+         * Evento para simular el circuito
+         */
         Play.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
