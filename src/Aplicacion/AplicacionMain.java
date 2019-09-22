@@ -6,6 +6,8 @@ import Lista.ListaEnlazada;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.event.EventHandler;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Cursor;
 import javafx.scene.Group;
 import javafx.scene.Node;
@@ -81,7 +83,7 @@ public class AplicacionMain extends Application {
     /**
      * Botón para ejecutar la simulación del circuito
      */
-    private Button Play = new Button("Play");
+    private Button simular = new Button(" Simular ");
 
     /**
      * Contenedor de los conectores iniciales
@@ -233,13 +235,12 @@ public class AplicacionMain extends Application {
         /**
          * Evento para simular el circuito
          */
-        Play.setOnMouseClicked(new EventHandler<MouseEvent>() {
+        simular.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-                MejoraEventos.Play(event);
+                MejoraEventos.simularCircuito(event);
             }
         });
-
 
         /**
          * Label del Palette
@@ -272,12 +273,12 @@ public class AplicacionMain extends Application {
          * Contenedor del scrollbar
          */
         BorderPane borderPane = new BorderPane();
-        //borderPane.setLayoutX(40);
-        //borderPane.setLayoutY(50);
         borderPane.setBackground(Background.EMPTY);
-        //borderPane.setTop(anclar);
+        borderPane.setMargin(scrollpane, new Insets(10,10,10,10));
         borderPane.setRight(scrollpane);
-
+        borderPane.setAlignment(simular, Pos.BOTTOM_RIGHT);
+        borderPane.setMargin(simular, new Insets(10,15,10,10));
+        borderPane.setBottom(simular);
         borderPane.setCenter(ventanaDiseño);
 
         //Creación de la escena
@@ -286,6 +287,7 @@ public class AplicacionMain extends Application {
                                "                                             Simulador de Circuitos Lógicos ").toUpperCase());
         primaryStage.setScene(scene);
         primaryStage.initStyle(StageStyle.UTILITY);
+        primaryStage.setResizable(true);
         primaryStage.show();
     }
 }

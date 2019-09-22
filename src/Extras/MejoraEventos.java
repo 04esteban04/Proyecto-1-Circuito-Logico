@@ -236,7 +236,7 @@ public class MejoraEventos {
         }
     }
 
-    public static void Play(MouseEvent e) {
+    public static void simularCircuito(MouseEvent e) {
         for (int x = 0; x < AplicacionMain.lista.getLargo(); x++) {
             Conector c = AplicacionMain.lista.Obtener(x);
             System.out.println(c.getPrimeraEntrada() + "" + c.getSegundaEntrada());
