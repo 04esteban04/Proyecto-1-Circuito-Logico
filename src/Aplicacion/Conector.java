@@ -95,7 +95,7 @@ public class Conector implements interfazConector {
     public ImageView getImage() {
         ImageView img = new ImageView(Image);
         img.setFitWidth(70);
-        img.setFitHeight(50);
+        img.setFitHeight(70);
         return img;
     }
 }

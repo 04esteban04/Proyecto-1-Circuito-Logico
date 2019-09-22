@@ -5,10 +5,13 @@ import Aplicacion.Conector;
 import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Shape;
 import javafx.scene.shape.StrokeLineCap;
+
+import java.util.Random;
 
 /*
 public class Circular extends Circle {
@@ -93,6 +96,7 @@ public class Circular extends Circle{
     private static double StartX, StartY;
     private String Type;
     private Line line;
+    private int finLine = 0;
     private boolean HaveLine;
     private Conector Component;
     private Circular Enlazado;
@@ -104,11 +108,11 @@ public class Circular extends Circle{
 
     public Circular(double X,double Y, Conector component,String type) {
         super(X, Y, 5, Color.BLACK);
-        Type=type;
+        Type = type;
         Component = component;
-        Draw=false;
-        HaveLine=false;
-        line=null;
+        Draw = false;
+        HaveLine = false;
+        line = null;
 
         this.setOnMousePressed(new EventHandler<MouseEvent>() {
             @Override
@@ -125,6 +129,7 @@ public class Circular extends Circle{
         orgTranslateX = ((Shape)(t.getSource())).getTranslateX();
         orgTranslateY = ((Shape)(t.getSource())).getTranslateY();
     }
+
     public void Dragged(MouseEvent t){
         double offsetX = t.getSceneX() - orgSceneX;
         double offsetY = t.getSceneY() - orgSceneY;
@@ -133,6 +138,14 @@ public class Circular extends Circle{
 
         this.setTranslateX(newTranslateX);
         this.setTranslateY(newTranslateY);
+
+        if (finLine==1){
+            line.setEndX(newTranslateX+getCenterX());
+            line.setEndY(newTranslateY+getCenterY());
+        }else if(finLine==2){
+            line.setStartX(newTranslateX+getCenterX());
+            line.setStartY(newTranslateY+getCenterY());
+        }
 
     }
 
@@ -143,6 +156,9 @@ public class Circular extends Circle{
                     if (!this.Type.equals(Anterior.Type)) {
                         DrawLine(e);
                         Enlazar();
+                        Anterior.finLine = 2;
+                        Anterior.line = line;
+                        finLine = 1;
                         StopDraw("not");
                     }
                 }else{
@@ -156,33 +172,32 @@ public class Circular extends Circle{
 
     private void DrawLine(MouseEvent e){
         line = new Line(StartX, StartY, e.getSceneX(), e.getSceneY());
+        line.setStrokeWidth(3);
+        line.setStroke(randomColor());
+        line.setStrokeLineCap(StrokeLineCap.ROUND);
+        line.getStrokeDashArray().setAll(4.0, 4.0);
         this.setFill(Color.GREEN);
-        //AplicacionMain.AreaText.appendText(Component.getName() + "..." + temp.getName());
         AplicacionMain.Group.getChildren().add(line);
     }
+
     private void StartDraw(MouseEvent e){
         StartX = e.getSceneX();
         StartY = e.getSceneY();
-        temp=this.Component;
-        Anterior=this;
-        //AplicacionMain.AreaText.appendText(Component.getName());
+        Anterior = this;
         Draw = true;
-        HaveLine=true;
+        HaveLine = true;
         this.setFill(Color.GREEN);
     }
+
     private void StopDraw(String i){
         if(i.equals("all")){
             Anterior.setFill(Color.BLACK);
-            Anterior.HaveLine=false;
-            Anterior=null;
-            temp=null;
-            Draw=false;
-            HaveLine=false;
-        }else{
-            Enlazado = Anterior;
-            Anterior.Enlazado = this;
+            Anterior.HaveLine = false;
             Anterior = null;
-            temp = null;
+            Draw = false;
+            HaveLine = false;
+        }else{
+            Anterior = null;
             Draw = false;
             HaveLine = true;
         }
@@ -206,9 +221,12 @@ public class Circular extends Circle{
         }
     }
 
-
-    public Line getLine() {
-        return line;
+    private Paint randomColor() {
+        Random random = new Random();
+        int r = random.nextInt(255);
+        int g = random.nextInt(255);
+        int b = random.nextInt(255);
+        return Color.rgb(r, g, b);
     }
 
     public Conector getComponente() {

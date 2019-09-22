@@ -22,12 +22,13 @@ public class ConectorFactory {
             return new Or(new Image("ImagenesComponentes/or-gate.png"), null, null);
         } else if (nombre.equals(Nor.nombre)) {
             return new Nor(new Image("ImagenesComponentes/nor-gate.png"), null, null);
-        } else if (nombre.equals(Not.nombre)) {
-            return new Not(new Image("ImagenesComponentes/not-gate.png"), null, null);
         } else if (nombre.equals(Xor.nombre)) {
             return new Xor(new Image("ImagenesComponentes/xor-gate.png"), null, null);
-        } else {
+        } else if (nombre.equals(Xnor.nombre)) {
             return new Xnor(new Image("ImagenesComponentes/xnor-gate.png"), null, null);
+        } else {
+            return new Not(new Image("ImagenesComponentes/not-gate.png"), null, null);
+
         }
     }
 }

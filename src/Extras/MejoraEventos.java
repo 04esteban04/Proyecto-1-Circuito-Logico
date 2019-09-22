@@ -159,7 +159,7 @@ public class MejoraEventos {
         Label numEntrada2 = new Label("i");
         Label numSalida = new Label("o");
 
-        if (!C.equals("NOT")) {
+        if (C != "Not") {
             output = new Circular(evento.getSceneX(), evento.getSceneY() + 10, c, "output");
             Circular outputII = new Circular(evento.getSceneX(), evento.getSceneY() + 30, c, "output");
             input = new Circular(evento.getSceneX() + 50, evento.getSceneY() + 20, c, "input");
@@ -186,7 +186,7 @@ public class MejoraEventos {
             numSalida.setLayoutX(evento.getX() + 50);
             numSalida.setLayoutY(evento.getY() - 5);
 
-            rectangle = new Rectangular(50, 40, i, evento, output, outputII, input, numEntrada1, numEntrada2, numSalida);
+            rectangle = new Rectangular(70, 70, i, evento, output, outputII, input, numEntrada1, numEntrada2, numSalida);
             AplicacionMain.Group.getChildren().addAll(rectangle, output, outputII, input, numEntrada1, numEntrada2, numSalida);
 
         } else {
@@ -194,29 +194,22 @@ public class MejoraEventos {
             input = new Circular(evento.getSceneX() + 50, evento.getSceneY() + 20, c, "input");
 
             numEntrada1.setText("i");
-            numEntrada2.setText("i");
             numSalida.setText("o");
 
             labelEntrada++;
             AplicacionMain.labelEntrada = labelEntrada;
-            numEntrada1.setText(numEntrada1.getText() + input);
+            numEntrada1.setText(numEntrada1.getText() + labelEntrada);
             numEntrada1.setLayoutX(evento.getX());
             numEntrada1.setLayoutY(evento.getY() - 15);
 
-            labelEntrada ++;
-            AplicacionMain.labelEntrada = labelEntrada;
-            numEntrada2.setText(numEntrada2.getText() + input);
-            numEntrada2.setLayoutX(evento.getX() - 20);
-            numEntrada2.setLayoutY(evento.getY() + 35);
-
             labelSalida++;
             AplicacionMain.labelSalida = labelSalida;
-            numSalida.setText(numSalida.getText() + output);
+            numSalida.setText(numSalida.getText() + labelSalida);
             numSalida.setLayoutX(evento.getX() + 50);
             numSalida.setLayoutY(evento.getY() - 5);
 
-            rectangle = new Rectangular(50, 40, i, evento, output, null, input, numEntrada1, numEntrada2, numSalida);
-            AplicacionMain.Group.getChildren().addAll(rectangle, output, input, numEntrada1, numEntrada2, numSalida);
+            rectangle = new Rectangular(70, 70, i, evento, output, null, input, numEntrada1, null, numSalida);
+            AplicacionMain.Group.getChildren().addAll(rectangle, output, input, numEntrada1, numSalida);
         }
     }
 
@@ -233,7 +226,6 @@ public class MejoraEventos {
             if (e.getDragboard().getString().equals(x)) {
                 Conector c = new ConectorFactory().crearComponente(x);
                 MejoraEventos.DroppedAux(e, i[cont], x, c, labelEntrada, labelSalida);
-                //AplicacionMain.AreaText.appendText("Agrega componente "+ x +"\n");
                 if (AplicacionMain.lista.getLargo() == 0) {
                     AplicacionMain.lista.InsertarInicio(c);
                 } else {

@@ -37,13 +37,13 @@ public class AplicacionMain extends Application {
     /**
      * Variables necesarias para obtener el nombre del conetor
      */
-    public static String[] nombreConector = {Nor.nombre,
-                                      Xor.nombre,
-                                      Nand.nombre,
-                                      Or.nombre,
-                                      Xnor.nombre,
-                                      And.nombre,
-                                      Not.nombre};
+    public static String[] nombreConector = {And.nombre,
+                                            Nand.nombre,
+                                            Or.nombre,
+                                            Nor.nombre,
+                                            Not.nombre,
+                                            Xor.nombre,
+                                            Xnor.nombre};
 
     /**
      * Variables necesarias para obtener la imagen del conetor
@@ -108,6 +108,10 @@ public class AplicacionMain extends Application {
     /**
      * Variable para incorporar el conectores en el palette
      */
+    public static final And and = (And)new ConectorFactory().crearComponente(And.nombre);
+    /**
+     * Variable para incorporar el conectores en el palette
+     */
     public static final Nand nand = (Nand) new ConectorFactory().crearComponente(Nand.nombre);
     /**
      * Variable para incorporar el conectores en el palette
@@ -116,23 +120,19 @@ public class AplicacionMain extends Application {
     /**
      * Variable para incorporar el conectores en el palette
      */
-    public static final Xor xor = (Xor)new ConectorFactory().crearComponente(Xor.nombre);
-    /**
-     * Variable para incorporar el conectores en el palette
-     */
     public static final Nor nor = (Nor)new ConectorFactory().crearComponente(Nor.nombre);
     /**
      * Variable para incorporar el conectores en el palette
      */
-    public static final Xnor xnor = (Xnor)new ConectorFactory().crearComponente(Xnor.nombre);
-    /**
-     * Variable para incorporar el conectores en el palette
-     */
-    public static final And and = (And)new ConectorFactory().crearComponente(And.nombre);
-    /**
-     * Variable para incorporar el conectores en el palette
-     */
     public static final Not not =(Not) new ConectorFactory().crearComponente(Not.nombre);
+    /**
+     * Variable para incorporar el conectores en el palette
+     */
+    public static final Xor xor = (Xor)new ConectorFactory().crearComponente(Xor.nombre);
+    /**
+     * Variable para incorporar el conectores en el palette
+     */
+    public static final Xnor xnor = (Xnor)new ConectorFactory().crearComponente(Xnor.nombre);
 
 
     static int cont = 0;

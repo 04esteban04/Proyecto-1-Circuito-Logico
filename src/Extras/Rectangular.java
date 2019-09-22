@@ -131,9 +131,9 @@ public class Rectangular extends Rectangle {
     public Rectangular(int width, int height, ImageView image, DragEvent e,Circular output, Circular outputII,
                        Circular input, Label labelEntrada1, Label labelEntrada2, Label labelSalida) {
         super(width,height);
-        this.Output=output;
-        this.OutputII=outputII;
-        this.Input=input;
+        this.Output = output;
+        this.OutputII = outputII;
+        this.Input = input;
         this.numEntrada1 = labelEntrada1;
         this.numEntrada2 = labelEntrada2;
         this.numSalida = labelSalida;
@@ -147,50 +147,75 @@ public class Rectangular extends Rectangle {
 
 
     /**
-     * Evento al precionar el rectangulo con la imagen.
+     * Evento al presionar el rectangulo con la imagen.
      */
-    private EventHandler<MouseEvent> RectangleOnMousePressedEventHandler =
-            new EventHandler<MouseEvent>() {
+    private EventHandler<MouseEvent> RectangleOnMousePressedEventHandler = new EventHandler<MouseEvent>() {
 
                 @Override
-                public void handle(MouseEvent t) {
-                    orgSceneX = t.getSceneX();
-                    orgSceneY = t.getSceneY();
-                    orgTranslateX = ((Rectangle)(t.getSource())).getTranslateX();
-                    orgTranslateY = ((Rectangle)(t.getSource())).getTranslateY();
-                    if (OutputII!=null) {
-                        Output.Pressed(t);
-                        OutputII.Pressed(t);
-                        Input.Pressed(t);
+                public void handle(MouseEvent evento) {
+                    orgSceneX = evento.getSceneX();
+                    orgSceneY = evento.getSceneY();
+                    orgTranslateX = ((Rectangle)(evento.getSource())).getTranslateX();
+                    orgTranslateY = ((Rectangle)(evento.getSource())).getTranslateY();
+
+                    if (OutputII != null) {
+                        numEntrada1.setLayoutX(evento.getSceneX() - 165);
+                        numEntrada1.setLayoutY(evento.getSceneY() - 150);
+                        numEntrada2.setLayoutX(evento.getSceneX() - 165);
+                        numEntrada2.setLayoutY(evento.getSceneY() - 65);
+                        numSalida.setLayoutX(evento.getSceneX() - 80);
+                        numSalida.setLayoutY(evento.getSceneY() - 110);
+
+                        Output.Pressed(evento);
+                        OutputII.Pressed(evento);
+                        Input.Pressed(evento);
                     }
-                    else{
-                        Output.Pressed(t);
-                        Input.Pressed(t);
+                    else {
+                        numEntrada1.setLayoutX(evento.getSceneX() - 165);
+                        numEntrada1.setLayoutY(evento.getSceneY() - 150);
+                        numSalida.setLayoutX(evento.getSceneX() - 80);
+                        numSalida.setLayoutY(evento.getSceneY() - 110);
+
+                        Output.Pressed(evento);
+                        Input.Pressed(evento);
                     }
                 }
             };
+
     /**
      * Evento al mover el rectangulo con la imagen.
      */
-    private EventHandler<MouseEvent> RectangleOnMouseDraggedEventHandler =
-            new EventHandler<MouseEvent>() {
+    private EventHandler<MouseEvent> RectangleOnMouseDraggedEventHandler = new EventHandler<MouseEvent>() {
 
                 @Override
-                public void handle(MouseEvent t) {
-                    double offsetX = t.getSceneX() - orgSceneX;
-                    double offsetY = t.getSceneY() - orgSceneY;
+                public void handle(MouseEvent evento) {
+                    double offsetX = evento.getSceneX() - orgSceneX;
+                    double offsetY = evento.getSceneY() - orgSceneY;
                     double newTranslateX = orgTranslateX + offsetX;
                     double newTranslateY = orgTranslateY + offsetY;
-                    ((Rectangle)(t.getSource())).setTranslateX(newTranslateX);
-                    ((Rectangle)(t.getSource())).setTranslateY(newTranslateY);
-                    if (OutputII!=null) {
-                        Output.Dragged(t);
-                        OutputII.Dragged(t);
-                        Input.Dragged(t);
+                    ((Rectangle)(evento.getSource())).setTranslateX(newTranslateX);
+                    ((Rectangle)(evento.getSource())).setTranslateY(newTranslateY);
+
+                    if (OutputII != null) {
+                        numEntrada1.setLayoutX(evento.getSceneX() - 165);
+                        numEntrada1.setLayoutY(evento.getSceneY() - 150);
+                        numEntrada2.setLayoutX(evento.getSceneX() - 165);
+                        numEntrada2.setLayoutY(evento.getSceneY() - 65);
+                        numSalida.setLayoutX(evento.getSceneX() - 80);
+                        numSalida.setLayoutY(evento.getSceneY() - 110);
+
+                        Output.Dragged(evento);
+                        OutputII.Dragged(evento);
+                        Input.Dragged(evento);
                     }
                     else {
-                        Output.Dragged(t);
-                        Input.Dragged(t);
+                        numEntrada1.setLayoutX(evento.getSceneX() - 165);
+                        numEntrada1.setLayoutY(evento.getSceneY() - 150);
+                        numSalida.setLayoutX(evento.getSceneX() - 80);
+                        numSalida.setLayoutY(evento.getSceneY() - 110);
+
+                        Output.Dragged(evento);
+                        Input.Dragged(evento);
                     }
                 }
             };
