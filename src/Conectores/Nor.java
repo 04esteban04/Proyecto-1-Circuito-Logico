@@ -46,7 +46,7 @@ public class Nor extends Conector implements interfazConector {
      * @return - Retorna un entero según el valor de las entradas del conector
      */
     public int getSalida() {
-        if (Entrada1.getSalida() == 0 && Entrada2.getSalida() == 0){
+        if (getInput1() == 0 && getInput2() == 0){
             return 1;
         }
         else{

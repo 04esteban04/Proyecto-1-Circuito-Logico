@@ -113,13 +113,12 @@ import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
-import javafx.scene.shape.Circle;
-import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
-import javafx.scene.shape.Shape;
 
+/**
+ * Clase rectangular que sirve para crear contenedores de las imagenes de los componentes
+ */
 public class Rectangular extends Rectangle {
     private double orgSceneX,orgSceneY;
     private double orgTranslateX,orgTranslateY;
@@ -128,6 +127,19 @@ public class Rectangular extends Rectangle {
     Label numEntrada2;
     Label numSalida;
 
+    /**
+     * Constructor de la clase que define los atributos y algunos eventos.
+     * @param width - ancho
+     * @param height - largo
+     * @param image - imagen
+     * @param e - evento
+     * @param output - input
+     * @param outputII - input 2
+     * @param input - output
+     * @param labelEntrada1 - label para mostrar la numeración de la entrada
+     * @param labelEntrada2 - label para mostrar la numeración de la entrada
+     * @param labelSalida - label para mostrar la numeración de la salida
+     */
     public Rectangular(int width, int height, ImageView image, DragEvent e,Circular output, Circular outputII,
                        Circular input, Label labelEntrada1, Label labelEntrada2, Label labelSalida) {
         super(width,height);
@@ -147,7 +159,7 @@ public class Rectangular extends Rectangle {
 
 
     /**
-     * Evento al presionar el rectangulo con la imagen.
+     * Evento que se ejecuta al presionar el rectángulo con la imagen.
      */
     private EventHandler<MouseEvent> RectangleOnMousePressedEventHandler = new EventHandler<MouseEvent>() {
 
@@ -183,7 +195,7 @@ public class Rectangular extends Rectangle {
             };
 
     /**
-     * Evento al mover el rectangulo con la imagen.
+     * Evento que se ejecuta al mover el rectángulo con la imagen.
      */
     private EventHandler<MouseEvent> RectangleOnMouseDraggedEventHandler = new EventHandler<MouseEvent>() {
 

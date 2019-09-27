@@ -90,7 +90,9 @@ public class Circular extends Circle {
 
  */
 
-
+/**
+ * Clase Circular para crear los enlaces entre componentes
+ */
 public class Circular extends Circle{
     private static boolean Draw;
     private static double StartX, StartY;
@@ -99,13 +101,18 @@ public class Circular extends Circle{
     private int finLine = 0;
     private boolean HaveLine;
     private Conector Component;
-    private Circular Enlazado;
-    private static Conector temp;
     private static Circular Anterior;
     //Variables para mover el circulo
     private double orgSceneX,orgSceneY;
     private double orgTranslateX,orgTranslateY;
 
+    /**
+     * Contructor clase circular.
+     * @param X- Distancia x del círculo
+     * @param Y- Distancia y del círculo.
+     * @param component - Componente respectivo del círculo.
+     * @param type - Típo de circulo que es (entrada ó salida).
+     */
     public Circular(double X,double Y, Conector component,String type) {
         super(X, Y, 5, Color.BLACK);
         Type = type;
@@ -122,39 +129,50 @@ public class Circular extends Circle{
         });
     }
 
-    public void Pressed (MouseEvent t){
-
-        orgSceneX = t.getSceneX();
-        orgSceneY = t.getSceneY();
-        orgTranslateX = ((Shape)(t.getSource())).getTranslateX();
-        orgTranslateY = ((Shape)(t.getSource())).getTranslateY();
+    /**
+     * Evento para asignar la posición inicial del círculo.
+     * @param evento - evento del mouse.
+     */
+    public void Pressed (MouseEvent evento){
+        orgSceneX = evento.getSceneX();
+        orgSceneY = evento.getSceneY();
+        orgTranslateX = ((Shape)(evento.getSource())).getTranslateX();
+        orgTranslateY = ((Shape)(evento.getSource())).getTranslateY();
     }
 
-    public void Dragged(MouseEvent t){
-        double offsetX = t.getSceneX() - orgSceneX;
-        double offsetY = t.getSceneY() - orgSceneY;
+    /**
+     * Evento para transladar el círculo conforme se mueve el mouse.
+     * @param evento - Evento del mouse.
+     */
+    public void Dragged(MouseEvent evento){
+        double offsetX = evento.getSceneX() - orgSceneX;
+        double offsetY = evento.getSceneY() - orgSceneY;
         double newTranslateX = orgTranslateX + offsetX;
         double newTranslateY = orgTranslateY + offsetY;
 
         this.setTranslateX(newTranslateX);
         this.setTranslateY(newTranslateY);
 
-        if (finLine==1){
+        if (finLine == 1){
             line.setEndX(newTranslateX+getCenterX());
             line.setEndY(newTranslateY+getCenterY());
-        }else if(finLine==2){
+        }else if(finLine == 2){
             line.setStartX(newTranslateX+getCenterX());
             line.setStartY(newTranslateY+getCenterY());
         }
 
     }
 
-    public void Click(MouseEvent e){
+    /**
+     * Evento al clickear un círculo y que comience o termine el dibujo de la línea
+     * @param evento - evento del mouse.
+     */
+    public void Click(MouseEvent evento){
         if(!HaveLine){
             if (Draw) {
-                if (Component.getID()!=Anterior.getComponente().getID()) {
+                if (Component.getID() != Anterior.getComponente().getID()) {
                     if (!this.Type.equals(Anterior.Type)) {
-                        DrawLine(e);
+                        DrawLine(evento);
                         Enlazar();
                         Anterior.finLine = 2;
                         Anterior.line = line;
@@ -165,13 +183,17 @@ public class Circular extends Circle{
                     StopDraw("all");
                 }
             }else{
-                StartDraw(e);
+                StartDraw(evento);
             }
         }
     }
 
-    private void DrawLine(MouseEvent e){
-        line = new Line(StartX, StartY, e.getSceneX(), e.getSceneY());
+    /**
+     * Evento para dibujar la línea que conecta los componentes.
+     * @param evento - evento de mouse.
+     */
+    private void DrawLine(MouseEvent evento){
+        line = new Line(StartX, StartY, evento.getSceneX(), evento.getSceneY());
         line.setStrokeWidth(3);
         line.setStroke(randomColor());
         line.setStrokeLineCap(StrokeLineCap.ROUND);
@@ -180,17 +202,25 @@ public class Circular extends Circle{
         AplicacionMain.Group.getChildren().add(line);
     }
 
-    private void StartDraw(MouseEvent e){
-        StartX = e.getSceneX();
-        StartY = e.getSceneY();
+    /**
+     * Método que posiciona el inicio del dibujo de la línea.
+     * @param evento - evento de mouse.
+     */
+    private void StartDraw(MouseEvent evento){
+        StartX = evento.getSceneX();
+        StartY = evento.getSceneY();
         Anterior = this;
         Draw = true;
         HaveLine = true;
         this.setFill(Color.GREEN);
     }
 
-    private void StopDraw(String i){
-        if(i.equals("all")){
+    /**
+     * Evento para terminar el dibujo de línea.
+     * @param parar - String que define cuando terminar el dibujo de la línea
+     */
+    private void StopDraw(String parar){
+        if(parar.equals("all")){
             Anterior.setFill(Color.BLACK);
             Anterior.HaveLine = false;
             Anterior = null;
@@ -203,17 +233,20 @@ public class Circular extends Circle{
         }
     }
 
+    /**
+     * Evento que une los círculos mediante la referencia de sus respectivos componentes.
+     */
     private void Enlazar(){
         if (this.Type.equals("input")) {
             this.getComponente().setInput(true);
-            if (Anterior.getComponente().getPrimeraEntrada() != null) {
+            if (Anterior.getComponente().getEntrada1() != null) {
                 Anterior.getComponente().setSegundaEntrada(this.Component);
             } else {
                 Anterior.getComponente().setPrimeraEntrada(this.Component);
             }
         } else {
             Anterior.getComponente().setInput(true);
-            if (this.getComponente().getPrimeraEntrada() != null) {
+            if (this.getComponente().getEntrada1() != null) {
                 this.getComponente().setSegundaEntrada(Anterior.Component);
             } else {
                 this.getComponente().setPrimeraEntrada(Anterior.Component);
@@ -221,6 +254,10 @@ public class Circular extends Circle{
         }
     }
 
+    /**
+     * Método que genera colores aleatorioa
+     * @return - Color
+     */
     private Paint randomColor() {
         Random random = new Random();
         int r = random.nextInt(255);
@@ -229,6 +266,10 @@ public class Circular extends Circle{
         return Color.rgb(r, g, b);
     }
 
+    /**
+     * Método para obtener el componente respectivo
+     * @return - Componente
+     */
     public Conector getComponente() {
         return Component;
     }

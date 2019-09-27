@@ -46,7 +46,7 @@ public class Xor extends Conector implements interfazConector {
      * @return - Retorna un entero según el valor de las entradas del conector
      */
     public int getSalida() {
-        if (Entrada1.getSalida() == Entrada2.getSalida()){
+        if (getInput1() == getInput2()){
             return 0;
         }
         else{

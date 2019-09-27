@@ -114,13 +114,22 @@ public class MejoraEventos {
 }
 */
 
-import Aplicacion.*;
+import Aplicacion.AplicacionMain;
+import Aplicacion.Conector;
+import Aplicacion.ConectorFactory;
 import Conectores.*;
+import Lista.ListaEnlazada;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ChoiceDialog;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.*;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 
 public class MejoraEventos {
@@ -236,12 +245,189 @@ public class MejoraEventos {
         }
     }
 
+    /**
+     * Este metodo es llamado por el botón para iniciar
+     * las operaciones y obtener la salida del circuito.
+     */
     public static void simularCircuito(MouseEvent e) {
-        for (int x = 0; x < AplicacionMain.lista.getLargo(); x++) {
+        CleanLista();
+        ListaEnlazada outputs = new ListaEnlazada();
+        ListaEnlazada inputs = new ListaEnlazada();
+        for (int x = 0; x < AplicacionMain.lista.getLargo(); x++){
             Conector c = AplicacionMain.lista.Obtener(x);
-            System.out.println(c.getPrimeraEntrada() + "" + c.getSegundaEntrada());
+
+            if (c.getEntrada1() != null && c.getEntrada2() != null && !c.isInput()){
+                outputs.Insertar(x, c);
+            }
+            else if (c.getEntrada1() == null && c.getEntrada2() == null && c.isInput()){
+                inputs.Insertar(x, c);
+                SetInputs(c);
+            }
+        }
+        try {
+            Asignar(AplicacionMain.lista);
+        }catch (Exception ex){
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Error Dialog");
+            alert.setHeaderText(null);
+            alert.setContentText("Error al ejecutar la operación. Por favor revise su configuración.");
+            alert.showAndWait();
+            Reset();
+        }
+        // Se obtiene la salida de la simulación
+        for (int x = 0; x < outputs.getLargo(); x++){
+            for(int y = 0; y < AplicacionMain.lista.getLargo(); y++){
+                Conector c1 = outputs.Obtener(x);
+                Conector c2 = AplicacionMain.lista.Obtener(y);
+                if (c1.getID() == c2.getID()){
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle("Information Dialog");
+                    alert.setHeaderText(null);
+                    alert.setContentText(c2.getName()+" #"+c2.getID()+ "- Output"+" = "+ c2.getOutput());
+                    alert.showAndWait();
+                }
+            }
         }
     }
+
+    /**
+     * Método que establece los entradas de los componentes iniciales del circuito
+     * @param c - Componente inicial.
+     */
+    private static void SetInputs(Conector c) {
+        if(c.getName().equals("Not")){
+            List<String> choices = new ArrayList<>();
+            choices.add("1");
+            choices.add("0");
+            ChoiceDialog<String> dialog = new ChoiceDialog<>("1", choices);
+            dialog.setTitle("Choice");
+            dialog.setHeaderText("Choice Value of input :"+ c.getName()+" #"+c.getID());
+            dialog.setContentText("Value: ");
+            Optional<String> result = dialog.showAndWait();
+            result.ifPresent(number -> c.setInput1(Integer.parseInt(number)));
+            result.ifPresent(number -> c.setInput2(Integer.parseInt(number)));
+        }
+        else if(c.getEntrada1() == null && c.getEntrada2() == null) {
+            for (int x=0; x< 2; x++) {
+                List<String> choices = new ArrayList<>();
+                choices.add("1");
+                choices.add("0");
+                ChoiceDialog<String> dialog = new ChoiceDialog<>("1", choices);
+                dialog.setTitle("Choice");
+                dialog.setHeaderText("Choice Value of input :"+ c.getName()+" #"+c.getID());
+                dialog.setContentText("Value: ");
+
+                Optional<String> result = dialog.showAndWait();
+                if(x==0) {
+                    result.ifPresent(number -> c.setInput1(Integer.parseInt(number)));
+                }else {
+                    result.ifPresent(number -> c.setInput2(Integer.parseInt(number)));
+                }
+            }
+        }
+    }
+
+    /**
+     * Método que asigna a cada elemento de la lista un valor entero para la variable output (salida)
+     * @param lista - lista enlazada diseñada.
+     */
+    private static void Asignar(ListaEnlazada lista){
+        int componentesListos = Listos(lista);
+        int largo = lista.getLargo();
+        int temp = 0;
+        while (componentesListos < largo) {
+            Conector c = lista.Obtener(temp);
+            if (c.getEntrada1() != null && c.getEntrada1() != null) {
+                Conector i1 = c.getEntrada1();
+                Conector i2 = c.getEntrada2();
+                if (i1.getOutput() < 2 && i2.getOutput() < 2 && c.getOutput() == 2) {
+                    c.setInput1(i1.getOutput());
+                    c.setInput2(i2.getOutput());
+                    c.setOutput(ClasiCompo(c));
+                    temp = 0;
+                    componentesListos++;
+                } else {
+                    temp++;
+                }
+            } else {
+                temp++;
+            }
+        }
+    }
+
+    /**
+     * Se obtiene la cantidad de componentes que poseen una salida establecida
+     * @param lista- lista enlazada.
+     * @return - cantidad de componentes listos.
+     */
+    private static int Listos(ListaEnlazada lista){
+        int componentesListos = 0;
+        for (int x = 0; x < lista.getLargo(); x++){
+            if (lista.Obtener(x).getInput2()<2 && lista.Obtener(x).getInput1()<2){
+                lista.Obtener(x).setOutput(ClasiCompo(lista.Obtener(x)));
+                componentesListos++;
+            }
+        }
+        return componentesListos;
+    }
+
+    /**
+     * Método que clasifica el componente y retorna su salida lógica
+     * correspondiente.
+     * @param conector - Componente.
+     * @return - entero correspondiente a la salida del componente
+     */
+    private static int ClasiCompo(Conector conector) {
+        if (conector.getName().equals("And")) {
+            And v = (And) conector;
+            return v.getSalida();
+        }
+        if (conector.getName().equals("Or")) {
+            Or v = (Or) conector;
+            return v.getSalida();
+        }
+        if (conector.getName().equals("Nand")) {
+            Nand v = (Nand) conector;
+            return v.getSalida();
+        }
+        if (conector.getName().equals("Xor")) {
+            Xor v = (Xor) conector;
+            return v.getSalida();
+        }
+        if (conector.getName().equals("Xnor")) {
+            Xnor v = (Xnor) conector;
+            return v.getSalida();
+        }
+        if (conector.getName().equals("Not")) {
+            Not v = (Not) conector;
+            return v.getSalida();
+        }else{
+            Nor v = (Nor) conector;
+            return v.getSalida();
+        }
+    }
+
+    /**
+     * Método que establece las entradas y salidas de los componentes de la lista a 2.
+     */
+    private static void CleanLista(){
+        for(int x = 0; x < AplicacionMain.lista.getLargo(); x++){
+            AplicacionMain.lista.Obtener(x).setOutput(2);
+            AplicacionMain.lista.Obtener(x).setInput1(2);
+            AplicacionMain.lista.Obtener(x).setInput2(2);
+        }
+    }
+
+    /**
+     * Método que borra las entradas y salidas de los componentes en la lista
+     */
+    static void Reset(){
+        AplicacionMain.lista = new ListaEnlazada();
+        Conector.setIDt(1);
+        AplicacionMain.Group.getChildren().clear();
+        System.out.println(AplicacionMain.lista.getLargo());
+    }
+
 }
 
 

@@ -46,7 +46,7 @@ public class Nand extends Conector implements interfazConector {
      * @return - Retorna un entero según el valor de las entradas del conector
      */
     public int getSalida() {
-        if (Entrada1.getSalida() == 1 && Entrada2.getSalida() == 1){
+        if (getInput1() == 1 && getInput2() == 1){
             return 0;
         }
         else{
