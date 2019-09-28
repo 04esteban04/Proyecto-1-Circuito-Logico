@@ -120,15 +120,13 @@ import Aplicacion.ConectorFactory;
 import Conectores.*;
 import Lista.ListaEnlazada;
 import javafx.scene.control.Alert;
-import javafx.scene.control.ChoiceDialog;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextInputDialog;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.*;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 
 
@@ -268,9 +266,9 @@ public class MejoraEventos {
             Asignar(AplicacionMain.lista);
         }catch (Exception ex){
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Error Dialog");
+            alert.setTitle(" Error ");
             alert.setHeaderText(null);
-            alert.setContentText("Error al ejecutar la operación. Por favor revise su configuración.");
+            alert.setContentText(" Error al simular el circuito ");
             alert.showAndWait();
             Reset();
         }
@@ -281,9 +279,9 @@ public class MejoraEventos {
                 Conector c2 = AplicacionMain.lista.Obtener(y);
                 if (c1.getID() == c2.getID()){
                     Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                    alert.setTitle("Information Dialog");
+                    alert.setTitle(" Resultado de la simulación ");
                     alert.setHeaderText(null);
-                    alert.setContentText(c2.getName()+" #"+c2.getID()+ "- Output"+" = "+ c2.getOutput());
+                    alert.setContentText(c2.getName() + " #" + c2.getID() + "- Output" + " = " + c2.getOutput());
                     alert.showAndWait();
                 }
             }
@@ -296,32 +294,53 @@ public class MejoraEventos {
      */
     private static void SetInputs(Conector c) {
         if(c.getName().equals("Not")){
-            List<String> choices = new ArrayList<>();
-            choices.add("1");
-            choices.add("0");
-            ChoiceDialog<String> dialog = new ChoiceDialog<>("1", choices);
-            dialog.setTitle("Choice");
-            dialog.setHeaderText("Choice Value of input :"+ c.getName()+" #"+c.getID());
-            dialog.setContentText("Value: ");
+            TextInputDialog dialog = new TextInputDialog(" Ingrese un 1 ó un 0 ");
+
+            dialog.setTitle(" Entrada de componente ");
+            dialog.setHeaderText(null);
+            dialog.setContentText(" Valor de la entrada de componente: " + c.getName());
+
             Optional<String> result = dialog.showAndWait();
-            result.ifPresent(number -> c.setInput1(Integer.parseInt(number)));
-            result.ifPresent(number -> c.setInput2(Integer.parseInt(number)));
+            try {
+                result.ifPresent(number -> c.setInput1(Integer.parseInt(number)));
+                result.ifPresent(number -> c.setInput2(Integer.parseInt(number)));
+            } catch (Exception e){
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle(" Error ");
+                alert.setHeaderText(null);
+                alert.setContentText(" Error al ingresar el valor de la entrada #1 del componente " + c.getName());
+                alert.showAndWait();
+            }
         }
         else if(c.getEntrada1() == null && c.getEntrada2() == null) {
-            for (int x=0; x< 2; x++) {
-                List<String> choices = new ArrayList<>();
-                choices.add("1");
-                choices.add("0");
-                ChoiceDialog<String> dialog = new ChoiceDialog<>("1", choices);
-                dialog.setTitle("Choice");
-                dialog.setHeaderText("Choice Value of input :"+ c.getName()+" #"+c.getID());
-                dialog.setContentText("Value: ");
+            for (int x = 0; x < 2; x++) {
+                TextInputDialog dialog = new TextInputDialog(" Ingrese un 1 ó un 0 ");
+
+                dialog.setTitle(" Entrada de componente ");
+                dialog.setHeaderText(null);
+                dialog.setContentText(" Valor de la entrada de componente: " + c.getName());
 
                 Optional<String> result = dialog.showAndWait();
-                if(x==0) {
-                    result.ifPresent(number -> c.setInput1(Integer.parseInt(number)));
+                if(x == 0) {
+                    try {
+                        result.ifPresent(number -> c.setInput1(Integer.parseInt(number)));
+                    } catch (Exception e){
+                        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                        alert.setTitle(" Error ");
+                        alert.setHeaderText(null);
+                        alert.setContentText(" Error al ingresar el valor de la entrada #1 del componente " + c.getName());
+                        alert.showAndWait();
+                    }
                 }else {
-                    result.ifPresent(number -> c.setInput2(Integer.parseInt(number)));
+                    try {
+                        result.ifPresent(number -> c.setInput2(Integer.parseInt(number)));
+                    } catch (Exception e){
+                        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                        alert.setTitle(" Error ");
+                        alert.setHeaderText(null);
+                        alert.setContentText(" Error al ingresar el valor de la entrada #2 del componente " + c.getName());
+                        alert.showAndWait();
+                    }
                 }
             }
         }
