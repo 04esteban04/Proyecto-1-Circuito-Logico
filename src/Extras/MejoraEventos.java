@@ -119,13 +119,22 @@ import Aplicacion.Conector;
 import Aplicacion.ConectorFactory;
 import Conectores.*;
 import Lista.ListaEnlazada;
+import javafx.geometry.Insets;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextInputDialog;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.*;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.CornerRadii;
+import javafx.scene.layout.GridPane;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Font;
+import javafx.stage.Stage;
 
 import java.util.Optional;
 
@@ -278,11 +287,72 @@ public class MejoraEventos {
                 Conector c1 = outputs.Obtener(x);
                 Conector c2 = AplicacionMain.lista.Obtener(y);
                 if (c1.getID() == c2.getID()){
-                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                    alert.setTitle(" Resultado de la simulación ");
-                    alert.setHeaderText(null);
-                    alert.setContentText(c2.getName() + " #" + c2.getID() + "- Output" + " = " + c2.getOutput());
-                    alert.showAndWait();
+
+                    GridPane tablaVerdad = new GridPane();
+                    tablaVerdad.setPrefSize(400, 150);
+                    tablaVerdad.setMaxSize(500, 150);
+                    tablaVerdad.setBackground(new Background(new BackgroundFill(Color.TOMATO, CornerRadii.EMPTY, Insets.EMPTY)));
+                    tablaVerdad.setGridLinesVisible(true);
+                    tablaVerdad.setLayoutX(40);
+                    tablaVerdad.setLayoutY(40);
+                    tablaVerdad.setBackground(Background.EMPTY);
+
+                    Label labelComponente = new Label("   Componente   ");
+                    labelComponente.setFont(new Font("Helvetica", 15));;
+                    Label labelEntrada1 = new Label("   Entrada #1   ");
+                    labelEntrada1.setFont(new Font("Helvetica", 15));;
+                    Label labelEntrada2 = new Label("   Entrada #2   ");
+                    labelEntrada2.setFont(new Font("Helvetica", 15));;
+                    Label labelSalida = new Label("   Salida   ");
+                    labelSalida.setFont(new Font("Helvetica", 15));;
+                    tablaVerdad.add(labelComponente, 0, 0);
+                    tablaVerdad.add(labelEntrada1, 1, 0);
+                    tablaVerdad.add(labelEntrada2, 2, 0);
+                    tablaVerdad.add(labelSalida, 3, 0);
+
+                    int fila = 1;
+                    int columna = 0;
+                    for (int i = 0; i < AplicacionMain.lista.getLargo(); i++ ){
+                        Label nombreComponente = new Label(AplicacionMain.lista.Obtener(i).getName());
+                        nombreComponente.setFont(new Font("Helvetica", 15));;
+                        Label entrada1 = new Label("          " + Integer.toString(AplicacionMain.lista.Obtener(i).getInput1()) + "   ");
+                        entrada1.setFont(new Font("Helvetica", 15));;
+                        Label entrada2 = new Label("          " + Integer.toString(AplicacionMain.lista.Obtener(i).getInput2()) + "   ");
+                        entrada2.setFont(new Font("Helvetica", 15));;
+                        Label salida = new Label("     " + Integer.toString(AplicacionMain.lista.Obtener(i).getSalida()) + "   ");
+                        salida.setFont(new Font("Helvetica", 15));;
+                        Label entrada2Not = new Label("    -    ");
+
+                        if (nombreComponente.equals("Not")){
+                            tablaVerdad.add(nombreComponente, columna, fila);
+                            columna++;
+                            tablaVerdad.add(entrada1, columna, fila);
+                            columna++;
+                            tablaVerdad.add(entrada2Not, columna, fila);
+                            columna++;
+                            tablaVerdad.add(salida, columna, fila);
+                            fila++;
+                            columna = 0;
+                        }
+                        else {
+                            tablaVerdad.add(nombreComponente, columna, fila);
+                            columna++;
+                            tablaVerdad.add(entrada1, columna, fila);
+                            columna++;
+                            tablaVerdad.add(entrada2, columna, fila);
+                            columna++;
+                            tablaVerdad.add(salida, columna, fila);
+                            fila++;
+                            columna = 0;
+                        }
+                    }
+
+                    Scene scene = new Scene(tablaVerdad, 500,200);
+                    Stage stage = new Stage();
+                    stage.setScene(scene);
+                    stage.setResizable(true);
+                    stage.setTitle(" Tabla de verdad del circuito creado ");
+                    stage.show();
                 }
             }
         }
@@ -440,11 +510,10 @@ public class MejoraEventos {
     /**
      * Método que borra las entradas y salidas de los componentes en la lista
      */
-    static void Reset(){
+    public static void Reset(){
         AplicacionMain.lista = new ListaEnlazada();
         Conector.setIDt(1);
         AplicacionMain.Group.getChildren().clear();
-        System.out.println(AplicacionMain.lista.getLargo());
     }
 
 }

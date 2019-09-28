@@ -258,7 +258,7 @@ public class Circular extends Circle{
      * Método que genera colores aleatorioa
      * @return - Color
      */
-    private Paint randomColor() {
+    public static Paint randomColor() {
         Random random = new Random();
         int r = random.nextInt(255);
         int g = random.nextInt(255);

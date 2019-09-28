@@ -4,13 +4,10 @@ import Conectores.*;
 import Extras.MejoraEventos;
 import Lista.ListaEnlazada;
 import javafx.application.Application;
-import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.Cursor;
 import javafx.scene.Group;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -20,17 +17,8 @@ import javafx.scene.input.DragEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.*;
-import javafx.scene.shape.Line;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-
-import java.util.Timer;
-import java.util.TimerTask;
-import java.util.concurrent.locks.Lock;
-
-import static java.lang.Thread.sleep;
 
 /**
  * Clase para ejecutar la ventana principal de la aplicación.
@@ -84,6 +72,16 @@ public class AplicacionMain extends Application {
      * Botón para ejecutar la simulación del circuito
      */
     private Button simular = new Button(" Simular ");
+
+    /**
+     * Botón para ejecutar la simulación del circuito
+     */
+    private Button borrar = new Button(" Borrar ");
+
+    /**
+     * Botón para guardar el circuito
+     */
+    private Button guardar = new Button(" Guardar ");
 
     /**
      * Contenedor de los conectores iniciales
@@ -243,6 +241,16 @@ public class AplicacionMain extends Application {
         });
 
         /**
+         * Evento para borrar el circuito creado
+         */
+        borrar.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                MejoraEventos.Reset();
+            }
+        });
+
+        /**
          * Label del Palette
          */
         /*
@@ -261,25 +269,42 @@ public class AplicacionMain extends Application {
          * Contenedor para conectores dentro del contenedor Vbox
          */
         ScrollPane scrollpane = new ScrollPane();
-        //scrollpane.setMaxSize(88, 485);
-        //scrollpane.setPrefWidth(88);
+        scrollpane.setMaxSize(88, 485);
+        scrollpane.setPrefWidth(88);
         scrollpane.setCursor(Cursor.HAND);
         scrollpane.setContent(componentesInicio);
         scrollpane.setBackground(Background.EMPTY);
         scrollpane.setStyle("-fx-border-color: black");
         ventanaDiseño .setStyle("-fx-background-color: white");
 
+        GridPane botones = new GridPane();
+        botones.setLayoutX(20);
+        botones.setLayoutY(20);
+        botones.setHgap(18);
+
+        botones.add(new Label("  "), 0, 0);
+
+        botones.add(simular, 1, 0);
+        botones.add(new Label(" "), 1, 1);
+
+        botones.add(borrar, 2, 0);
+        botones.add(new Label(" "), 2, 1);
+
+        botones.add(guardar, 3, 0);
+        botones.add(new Label(" "), 3, 1);
+
         /**
-         * Contenedor del scrollbar
-         */
+        * Contenedor del scrollbar
+        */
         BorderPane borderPane = new BorderPane();
         borderPane.setBackground(Background.EMPTY);
         borderPane.setMargin(scrollpane, new Insets(10,10,10,10));
         borderPane.setRight(scrollpane);
-        borderPane.setAlignment(simular, Pos.BOTTOM_RIGHT);
-        borderPane.setMargin(simular, new Insets(10,15,10,10));
-        borderPane.setBottom(simular);
+        //borderPane.setAlignment(simular, Pos.BOTTOM_RIGHT);
+        //borderPane.setMargin(simular, new Insets(10,30,30,30));
+        borderPane.setBottom(botones);
         borderPane.setCenter(ventanaDiseño);
+        borderPane.setStyle("-fx-background-color: white");
 
         //Creación de la escena
         Scene scene = new Scene(borderPane, 1200, 600);
