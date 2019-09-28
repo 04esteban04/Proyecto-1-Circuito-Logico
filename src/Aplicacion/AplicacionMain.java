@@ -207,7 +207,7 @@ public class AplicacionMain extends Application {
             x.setOnDragDetected(new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent evento) {
-                    MejoraEventos.DragDetected(evento , x, nombreConector[finalA]);
+                    MejoraEventos.movimientoDetectado(evento , x, nombreConector[finalA]);
                 }});
             a++;
         }
@@ -226,7 +226,7 @@ public class AplicacionMain extends Application {
         ventanaDiseño .setOnDragDropped(new EventHandler<DragEvent>() {
             @Override
             public void handle(DragEvent evento) {
-                MejoraEventos.Dropped(evento, Imagenes, labelEntrada, labelSalida);
+                MejoraEventos.soltar(evento, Imagenes, labelEntrada, labelSalida);
             }
         });
 
@@ -246,20 +246,10 @@ public class AplicacionMain extends Application {
         borrar.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-                MejoraEventos.Reset();
+                MejoraEventos.borrar();
             }
         });
 
-        /**
-         * Label del Palette
-         */
-        /*
-        Label labelPalette = new Label("PALETTE");
-        labelPalette.setFont(Font.font("Banschriff Sans Seriff", FontWeight.BOLD, 22));
-        AnchorPane anclar = new AnchorPane();
-        anclar.getChildren().add(labelPalette);
-        AnchorPane.setBottomAnchor(labelPalette, 15.0);
-        */
 
         /**
          * Contenedor para conectores iniciales
@@ -300,8 +290,6 @@ public class AplicacionMain extends Application {
         borderPane.setBackground(Background.EMPTY);
         borderPane.setMargin(scrollpane, new Insets(10,10,10,10));
         borderPane.setRight(scrollpane);
-        //borderPane.setAlignment(simular, Pos.BOTTOM_RIGHT);
-        //borderPane.setMargin(simular, new Insets(10,30,30,30));
         borderPane.setBottom(botones);
         borderPane.setCenter(ventanaDiseño);
         borderPane.setStyle("-fx-background-color: white");

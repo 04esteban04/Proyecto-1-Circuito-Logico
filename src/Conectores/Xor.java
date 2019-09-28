@@ -8,7 +8,7 @@ import javafx.scene.image.Image;
  * Clase para crear el conector And
  */
 public class Xor extends Conector implements interfazConector {
-    /*
+    /**
      * Variable para obtener el nombre del conector
      */
     public static String nombre ="Xor";

@@ -8,7 +8,7 @@ import javafx.scene.image.Image;
  * Clase para crear conector Or.
  */
 public class Or extends Conector implements interfazConector {
-    /*
+    /**
      * Variable para obtener el nombre del conector
      */
     public static String nombre = "Or";

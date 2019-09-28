@@ -8,7 +8,7 @@ import javafx.scene.image.Image;
  * Clase para crear el conector Nor
  */
 public class Nor extends Conector implements interfazConector {
-    /*
+    /**
      * Variable para obtener el nombre del conector
      */
     public static String nombre ="Nor";

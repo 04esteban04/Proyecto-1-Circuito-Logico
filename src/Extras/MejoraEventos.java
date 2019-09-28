@@ -1,118 +1,4 @@
 package Extras;
-/*
-import Aplicacion.*;
-import javafx.event.EventHandler;
-import javafx.scene.Cursor;
-import javafx.scene.Group;
-import javafx.scene.control.Label;
-import javafx.scene.image.ImageView;
-import javafx.scene.input.*;
-import javafx.scene.shape.Line;
-import javafx.scene.shape.Rectangle;
-
-import static Extras.Rectangular.*;
-*/
-//CORREGIR LÍNEAS ENTRE COMPONENTES
-
-/**
- * Clase que simplifica el código para generar eventos
- */
-/*
-public class MejoraEventos {
-
-    private static Circular entrada1, entrada2, salida;
-    private static Rectangle rectangle;
-    private static double orgSceneX,orgSceneY;
-    private static double orgTranslateX,orgTranslateY;
-    public static int input = 1;
-    public static int output = 1;
-    public static Line linea;
-*/
-    /*
-    /**
-     * Método que administra el drag sobre el conector del palette
-     * @param evento - Evento de mouse al mover la imagen
-     * @param imagenConector - Imagen del conector seleccionado
-     * @param nombre - Nombre del conector seleccionado
-     */
-    /*
-   public static final void DragDetected(MouseEvent evento, ImageView imagenConector, String nombre){
-        Dragboard db = imagenConector.startDragAndDrop(TransferMode.ANY);
-        ClipboardContent content = new ClipboardContent();
-        content.putString(nombre);
-        db.setContent(content);
-        evento.consume();
-    }
-    */
-    /*
-    /**
-     * Método que coloca la imagen en un rectángulo para colocarlo en el panel principal
-     * @param evento - Evento de drag al mover la imagen
-     * @param imagenConector - Imagen del conector.
-     */
-    /*
-    private static void DroppedAux(DragEvent evento,ImageView imagenConector){
-
-        Label numEntrada1 = new Label("i");
-        Label numEntrada2 = new Label("i");
-        Label numSalida = new Label("o");
-
-        numEntrada1.setText("i");
-        numEntrada2.setText("i");
-        numSalida.setText("o");
-
-        numEntrada1.setText(numEntrada1.getText() + input);
-        numEntrada1.setLayoutX(evento.getX());
-        numEntrada1.setLayoutY(evento.getY() - 15);
-        input++;
-
-        numEntrada2.setText(numEntrada2.getText() + input);
-        numEntrada2.setLayoutX(evento.getX() - 20);
-        numEntrada2.setLayoutY(evento.getY() + 35);
-        input ++ ;
-
-        numSalida.setText(numSalida.getText() + output);
-        numSalida.setLayoutX(evento.getX() + 50);
-        numSalida.setLayoutY(evento.getY() - 5);
-        output ++ ;
-
-        entrada1 = new Circular(evento.getX(), evento.getY() + 13);
-        entrada2 = new Circular(evento.getX(), evento.getY() + 28);
-        salida = new Circular(evento.getX() + 55,evento.getY() + 19.85);
-
-        rectangle = new Rectangular(60, 55, imagenConector, evento, entrada1, entrada2, salida, numEntrada1, numEntrada2, numSalida);
-        AplicacionMain.Group.getChildren().addAll(rectangle,entrada1, entrada2, salida, numEntrada1, numEntrada2, numSalida);
-    }
-    */
-    /*
-    /**
-     * Método que introduce en una lista enlazada cada conector cuando se suelta la imagen del conector
-     * @param evento - Evento de drag al mover la imagen
-     */
-
-    /*
-    public static final void Dropped(DragEvent evento, ImageView[] i){
-        int cont = 0;
-        for (String x : AplicacionMain.nombreConector){
-            if (evento.getDragboard().getString().equals(x)){
-                MejoraEventos.DroppedAux(evento, i[cont]);
-                if (AplicacionMain.lista.getLargo() == 0){
-                    AplicacionMain.lista.InsertarInicio(new ConectorFactory().crearComponente(x)); }
-                else{
-                    AplicacionMain.lista.InsertarFinal(new ConectorFactory().crearComponente(x)); }
-            }
-            cont++;
-        }
-    }
-
-    public static void Play(MouseEvent e){
-        for (int x=0;x<AplicacionMain.lista.getLargo();x++){
-            Conector c = AplicacionMain.lista.Obtener(x);
-            System.out.println(c.getPrimeraEntrada() +""+ c.getSegundaEntrada());
-        }
-    }
-}
-*/
 
 import Aplicacion.AplicacionMain;
 import Aplicacion.Conector;
@@ -138,7 +24,9 @@ import javafx.stage.Stage;
 
 import java.util.Optional;
 
-
+/**
+ * Clase que simplifica el código para generar eventos
+ */
 public class MejoraEventos {
 
     /**
@@ -149,7 +37,7 @@ public class MejoraEventos {
      * @param Comp - Imagen del componente.
      * @param Name - Nombre del componente que se está moviendo.
      */
-    public static void DragDetected(MouseEvent e, ImageView Comp, String Name) {
+    public static void movimientoDetectado(MouseEvent e, ImageView Comp, String Name) {
         Dragboard db = Comp.startDragAndDrop(TransferMode.ANY);
         ClipboardContent content = new ClipboardContent();
         content.putString(Name);
@@ -166,9 +54,9 @@ public class MejoraEventos {
      * @param i - Imagen del componente.
      * @param C - String para identificar el componente.
      */
-    private static void DroppedAux(DragEvent evento, ImageView i, String C, Conector c, int labelEntrada, int labelSalida) {
-        Circular output;
-        Circular input;
+    private static void soltarAux(DragEvent evento, ImageView i, String C, Conector c, int labelEntrada, int labelSalida) {
+        Circulo output;
+        Circulo input;
         Rectangle rectangle;
         Line linea;
         Label numEntrada1 = new Label("i");
@@ -176,9 +64,9 @@ public class MejoraEventos {
         Label numSalida = new Label("o");
 
         if (C != "Not") {
-            output = new Circular(evento.getSceneX() + 4, evento.getSceneY() + 17, c, "output");
-            Circular outputII = new Circular(evento.getSceneX() + 4, evento.getSceneY() + 31, c, "output");
-            input = new Circular(evento.getSceneX() + 65, evento.getSceneY() + 25, c, "input");
+            output = new Circulo(evento.getSceneX() + 4, evento.getSceneY() + 17, c, "output");
+            Circulo outputII = new Circulo(evento.getSceneX() + 4, evento.getSceneY() + 31, c, "output");
+            input = new Circulo(evento.getSceneX() + 65, evento.getSceneY() + 25, c, "input");
 
             numEntrada1.setText("i");
             numEntrada2.setText("i");
@@ -202,12 +90,12 @@ public class MejoraEventos {
             numSalida.setLayoutX(evento.getX() + 50);
             numSalida.setLayoutY(evento.getY() - 5);
 
-            rectangle = new Rectangular(70, 70, i, evento, output, outputII, input, numEntrada1, numEntrada2, numSalida);
+            rectangle = new Rectangulo(70, 70, i, evento, output, outputII, input, numEntrada1, numEntrada2, numSalida);
             AplicacionMain.Group.getChildren().addAll(rectangle, output, outputII, input, numEntrada1, numEntrada2, numSalida);
 
         } else {
-            output = new Circular(evento.getSceneX() + 4, evento.getSceneY() + 22, c, "output");
-            input = new Circular(evento.getSceneX() + 65, evento.getSceneY() + 22, c, "input");
+            output = new Circulo(evento.getSceneX() + 4, evento.getSceneY() + 22, c, "output");
+            input = new Circulo(evento.getSceneX() + 65, evento.getSceneY() + 22, c, "input");
 
             numEntrada1.setText("i");
             numSalida.setText("o");
@@ -224,7 +112,7 @@ public class MejoraEventos {
             numSalida.setLayoutX(evento.getX() + 50);
             numSalida.setLayoutY(evento.getY() - 5);
 
-            rectangle = new Rectangular(70, 70, i, evento, output, null, input, numEntrada1, null, numSalida);
+            rectangle = new Rectangulo(70, 70, i, evento, output, null, input, numEntrada1, null, numSalida);
             AplicacionMain.Group.getChildren().addAll(rectangle, output, input, numEntrada1, numSalida);
         }
     }
@@ -236,12 +124,12 @@ public class MejoraEventos {
      *
      * @param e - Evento tipo DragEvent.
      */
-    public static void Dropped(DragEvent e, ImageView[] i, int labelEntrada, int labelSalida) {
+    public static void soltar(DragEvent e, ImageView[] i, int labelEntrada, int labelSalida) {
         int cont = 0;
         for (String x : AplicacionMain.nombreConector) {
             if (e.getDragboard().getString().equals(x)) {
                 Conector c = new ConectorFactory().crearComponente(x);
-                MejoraEventos.DroppedAux(e, i[cont], x, c, labelEntrada, labelSalida);
+                MejoraEventos.soltarAux(e, i[cont], x, c, labelEntrada, labelSalida);
                 if (AplicacionMain.lista.getLargo() == 0) {
                     AplicacionMain.lista.InsertarInicio(c);
                 } else {
@@ -257,7 +145,7 @@ public class MejoraEventos {
      * las operaciones y obtener la salida del circuito.
      */
     public static void simularCircuito(MouseEvent e) {
-        CleanLista();
+        limpiarLista();
         ListaEnlazada outputs = new ListaEnlazada();
         ListaEnlazada inputs = new ListaEnlazada();
         for (int x = 0; x < AplicacionMain.lista.getLargo(); x++){
@@ -268,18 +156,18 @@ public class MejoraEventos {
             }
             else if (c.getEntrada1() == null && c.getEntrada2() == null && c.isInput()){
                 inputs.Insertar(x, c);
-                SetInputs(c);
+                establecerEntradas(c);
             }
         }
         try {
-            Asignar(AplicacionMain.lista);
+            asignar(AplicacionMain.lista);
         }catch (Exception ex){
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle(" Error ");
             alert.setHeaderText(null);
             alert.setContentText(" Error al simular el circuito ");
             alert.showAndWait();
-            Reset();
+            borrar();
         }
         // Se obtiene la salida de la simulación
         for (int x = 0; x < outputs.getLargo(); x++){
@@ -362,7 +250,7 @@ public class MejoraEventos {
      * Método que establece los entradas de los componentes iniciales del circuito
      * @param c - Componente inicial.
      */
-    private static void SetInputs(Conector c) {
+    private static void establecerEntradas(Conector c) {
         if(c.getName().equals("Not")){
             TextInputDialog dialog = new TextInputDialog(" Ingrese un 1 ó un 0 ");
 
@@ -420,8 +308,8 @@ public class MejoraEventos {
      * Método que asigna a cada elemento de la lista un valor entero para la variable output (salida)
      * @param lista - lista enlazada diseñada.
      */
-    private static void Asignar(ListaEnlazada lista){
-        int componentesListos = Listos(lista);
+    private static void asignar(ListaEnlazada lista){
+        int componentesListos = componentesListos(lista);
         int largo = lista.getLargo();
         int temp = 0;
         while (componentesListos < largo) {
@@ -432,7 +320,7 @@ public class MejoraEventos {
                 if (i1.getOutput() < 2 && i2.getOutput() < 2 && c.getOutput() == 2) {
                     c.setInput1(i1.getOutput());
                     c.setInput2(i2.getOutput());
-                    c.setOutput(ClasiCompo(c));
+                    c.setOutput(clasificarCompo(c));
                     temp = 0;
                     componentesListos++;
                 } else {
@@ -449,11 +337,11 @@ public class MejoraEventos {
      * @param lista- lista enlazada.
      * @return - cantidad de componentes listos.
      */
-    private static int Listos(ListaEnlazada lista){
+    private static int componentesListos(ListaEnlazada lista){
         int componentesListos = 0;
         for (int x = 0; x < lista.getLargo(); x++){
             if (lista.Obtener(x).getInput2()<2 && lista.Obtener(x).getInput1()<2){
-                lista.Obtener(x).setOutput(ClasiCompo(lista.Obtener(x)));
+                lista.Obtener(x).setOutput(clasificarCompo(lista.Obtener(x)));
                 componentesListos++;
             }
         }
@@ -466,7 +354,7 @@ public class MejoraEventos {
      * @param conector - Componente.
      * @return - entero correspondiente a la salida del componente
      */
-    private static int ClasiCompo(Conector conector) {
+    private static int clasificarCompo(Conector conector) {
         if (conector.getName().equals("And")) {
             And v = (And) conector;
             return v.getSalida();
@@ -499,7 +387,7 @@ public class MejoraEventos {
     /**
      * Método que establece las entradas y salidas de los componentes de la lista a 2.
      */
-    private static void CleanLista(){
+    private static void limpiarLista(){
         for(int x = 0; x < AplicacionMain.lista.getLargo(); x++){
             AplicacionMain.lista.Obtener(x).setOutput(2);
             AplicacionMain.lista.Obtener(x).setInput1(2);
@@ -510,7 +398,7 @@ public class MejoraEventos {
     /**
      * Método que borra las entradas y salidas de los componentes en la lista
      */
-    public static void Reset(){
+    public static void borrar(){
         AplicacionMain.lista = new ListaEnlazada();
         Conector.setIDt(1);
         AplicacionMain.Group.getChildren().clear();
